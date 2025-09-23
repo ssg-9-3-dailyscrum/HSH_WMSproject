@@ -1,4 +1,4 @@
-package dao;
+package com.model;
 
 public class DAO {
 }

@@ -1,6 +1,6 @@
 package mysql;
 
-import config.DBUtil;
+import com.config.DBUtil;
 
 import java.sql.Connection;
 
