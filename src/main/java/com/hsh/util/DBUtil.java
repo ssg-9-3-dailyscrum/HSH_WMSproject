@@ -1,4 +1,4 @@
-package main.java.com.hsh.config;
+package main.java.com.hsh.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
