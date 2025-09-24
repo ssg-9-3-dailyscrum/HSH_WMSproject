@@ -1,4 +1,4 @@
 package main.java.com.hsh.service;
 
-public class AdminService {
+public interface AdminService {
 }
