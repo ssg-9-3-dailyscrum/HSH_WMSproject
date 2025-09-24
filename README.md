@@ -1,11 +1,11 @@
 # 패키지 구조
-com.project.wms
- ├── controller   // 사용자의 요청을 받고 응답을 전달
- ├── service      // 비즈니스 로직 처리
- ├── dao          // DB 접근 (CRUD)
- ├── domain       // VO, DTO, Entity
- ├── view         // 콘솔/웹/JSP/Thymeleaf 등
- └── util         // 공용 유틸리티 (로그, DB 연결 등)
+com.hsh.wms
+ ├── controller   // 사용자의 요청을 받고 응답을 전달<br>
+ ├── service      // 비즈니스 로직 처리<br>
+ ├── dao          // DB 접근 (CRUD)<br>
+ ├── domain       // VO, DTO, Entity<br>
+ ├── view         // 콘솔/웹/JSP/Thymeleaf 등<br>
+ └── util         // 공용 유틸리티 (로그, DB 연결 등)<br>
 
 
 # Git Branch Strategy
