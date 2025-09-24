@@ -1,3 +1,13 @@
+# 패키지 구조
+com.project.wms
+ ├── controller   // 사용자의 요청을 받고 응답을 전달
+ ├── service      // 비즈니스 로직 처리
+ ├── dao          // DB 접근 (CRUD)
+ ├── domain       // VO, DTO, Entity
+ ├── view         // 콘솔/웹/JSP/Thymeleaf 등
+ └── util         // 공용 유틸리티 (로그, DB 연결 등)
+
+
 # Git Branch Strategy
 
 우리 팀(4명)의 협업을 위한 브랜치 전략을 정리한 문서입니다.  
