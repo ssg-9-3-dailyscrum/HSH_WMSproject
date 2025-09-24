@@ -1,5 +1,5 @@
 # 패키지 구조
-com.hsh.wms
+com.hsh<br>
  ├── controller   // 사용자의 요청을 받고 응답을 전달<br>
  ├── service      // 비즈니스 로직 처리<br>
  ├── dao          // DB 접근 (CRUD)<br>
