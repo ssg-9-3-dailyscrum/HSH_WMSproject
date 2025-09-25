@@ -61,6 +61,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
                 warehousevo.setWarehouseStatus(rs.getString("warehouse_status"));
                 warehousevo.setRegistrationDate(rs.getDate("registration_date").toLocalDate());
                 warehousevo.setLastUpdateDate(rs.getTimestamp("latest_update_date").toLocalDateTime());
+                warehousevo.setAddress(rs.getString("address"));
 
                 warehouse.add(warehousevo);
             }
