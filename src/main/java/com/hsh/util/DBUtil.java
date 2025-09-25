@@ -9,7 +9,7 @@ public class DBUtil {
     private static ResourceBundle bundle;
 
     static {
-        bundle = ResourceBundle.getBundle("config.dbinfo");
+        bundle = ResourceBundle.getBundle("dbinfo");
 
         try{
             Class.forName(bundle.getString("driver"));
