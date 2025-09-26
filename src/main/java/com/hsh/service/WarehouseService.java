@@ -13,4 +13,6 @@ public interface WarehouseService {
     public List<WarehouseVo> searchByName(String name);
 
     public List<WarehouseVo> searchByLocation(String location);
+
+//    public int chageStatus();
 }

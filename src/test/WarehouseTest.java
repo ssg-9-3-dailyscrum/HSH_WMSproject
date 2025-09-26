@@ -8,7 +8,11 @@ import main.java.com.hsh.view.WarehouseView;
 public class WarehouseTest {
     public static void main(String[] args) {
         WarehouseController controller = WarehouseController.getInstance();
-//        controller.listWarehouse();
-        controller.getWarehouseByType();
+        WarehouseView view = new WarehouseView();
+//        view.runListWarehouse();
+//        view.printWarehouseByType();
+//        view.printWarehouseByLocation();
+        view.printWarehouseByName();
+
     }
 }

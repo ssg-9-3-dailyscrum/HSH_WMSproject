@@ -21,9 +21,9 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     // 테스트용/커스텀 DAO 주입 가능 생성자
-    public WarehouseServiceImpl(WarehouseDao warehouseDao) {
-        this.warehouseDao = warehouseDao;
-    }
+//    public WarehouseServiceImpl(WarehouseDao warehouseDao) {
+//        this.warehouseDao = warehouseDao;
+//    }
 
     // 싱글톤 전역 접근 지점 getInstance는 public으로
     public static WarehouseServiceImpl getInstance() {
@@ -45,16 +45,16 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public List<WarehouseVo> searchByName(String name) {
-        return List.of();
+        return warehouseDao.findByName(name);
     }
 
     @Override
     public List<WarehouseVo> searchByLocation(String location) {
-        return List.of();
+        return warehouseDao.findByLocation(location);
     }
 
     // 테스트용으로 DAO를 바꾸고 싶으면 별도 init 메서드
-    public void initDao(WarehouseDao warehouseDao) {
-        this.warehouseDao = warehouseDao;
-    }
+//    public void initDao(WarehouseDao warehouseDao) {
+//        this.warehouseDao = warehouseDao;
+//    }
 }

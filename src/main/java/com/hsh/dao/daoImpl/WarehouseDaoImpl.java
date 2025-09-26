@@ -25,12 +25,36 @@ public class WarehouseDaoImpl implements WarehouseDao {
     @Override
     public List<WarehouseVo> findByLocation(String location) {
         List<WarehouseVo> warehouse = new ArrayList<WarehouseVo>();
-        return warehouse;
-    }
+        String sql = "CALL usp_warehouse_selectByLocation(?)";
 
-    @Override
-    public List<WarehouseVo> findByName(String name) {
-        List<WarehouseVo> warehouse = new ArrayList<WarehouseVo>();
+        try(
+                Connection conn  = DBUtil.getConnection();
+                CallableStatement call = conn.prepareCall(sql);
+        ) {
+            // 파라미터 세팅
+            call.setString(1, location);
+
+            try(ResultSet rs = call.executeQuery()) {
+                while(rs.next()) {
+                    WarehouseVo warehousevo = new WarehouseVo();
+                    warehousevo.setWarehouseId(rs.getInt("warehouse_id"));
+                    warehousevo.setAdminId(rs.getInt("admin_id"));
+                    warehousevo.setAdminName(rs.getString("admin_name"));
+                    warehousevo.setWarehouseName(rs.getString("warehouse_name"));
+                    warehousevo.setWarehouseType(rs.getString("warehouse_type"));
+                    warehousevo.setCapacity(rs.getInt("warehouse_capacity"));
+                    warehousevo.setWarehouseStatus(rs.getString("warehouse_status"));
+                    warehousevo.setRegistrationDate(rs.getDate("registration_date").toLocalDate());
+                    warehousevo.setLastUpdateDate(rs.getTimestamp("latest_update_date").toLocalDateTime());
+                    warehousevo.setAddress(rs.getString("address"));
+
+                    warehouse.add(warehousevo);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return warehouse;
     }
 
@@ -46,6 +70,42 @@ public class WarehouseDaoImpl implements WarehouseDao {
         ) {
             // 파라미터 세팅
             call.setString(1, type);
+
+            try(ResultSet rs = call.executeQuery()) {
+                while(rs.next()) {
+                    WarehouseVo warehousevo = new WarehouseVo();
+                    warehousevo.setWarehouseId(rs.getInt("warehouse_id"));
+                    warehousevo.setAdminId(rs.getInt("admin_id"));
+                    warehousevo.setAdminName(rs.getString("admin_name"));
+                    warehousevo.setWarehouseName(rs.getString("warehouse_name"));
+                    warehousevo.setWarehouseType(rs.getString("warehouse_type"));
+                    warehousevo.setCapacity(rs.getInt("warehouse_capacity"));
+                    warehousevo.setWarehouseStatus(rs.getString("warehouse_status"));
+                    warehousevo.setRegistrationDate(rs.getDate("registration_date").toLocalDate());
+                    warehousevo.setLastUpdateDate(rs.getTimestamp("latest_update_date").toLocalDateTime());
+                    warehousevo.setAddress(rs.getString("address"));
+
+                    warehouse.add(warehousevo);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return warehouse;
+    }
+
+    @Override
+    public List<WarehouseVo> findByName(String name) {
+        List<WarehouseVo> warehouse = new ArrayList<WarehouseVo>();
+
+        String sql = "CALL usp_warehouse_selectByName(?)";
+
+        try(
+                Connection conn  = DBUtil.getConnection();
+                CallableStatement call = conn.prepareCall(sql);
+        ) {
+            // 파라미터 세팅
+            call.setString(1, name);
 
             try(ResultSet rs = call.executeQuery()) {
                 while(rs.next()) {
