@@ -1,4 +1,4 @@
 package main.java.com.hsh.common;
 
-public class Menu {
+public enum Menu {
 }
