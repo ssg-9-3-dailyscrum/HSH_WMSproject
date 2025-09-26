@@ -7,10 +7,12 @@ import main.java.com.hsh.view.WarehouseView;
 
 public class WarehouseTest {
     public static void main(String[] args) {
-        WarehouseService warehouseService = new WarehouseServiceImpl();
-        WarehouseView warehouseView = new WarehouseView();
+        WarehouseController controller = WarehouseController.getInstance();
+        WarehouseView view = new WarehouseView();
+//        view.runListWarehouse();
+//        view.printWarehouseByType();
+//        view.printWarehouseByLocation();
+        view.printWarehouseByName();
 
-        WarehouseController controller = new WarehouseController(warehouseService, warehouseView);
-        controller.listWarehouse();
     }
 }

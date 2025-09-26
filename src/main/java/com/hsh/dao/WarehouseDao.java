@@ -10,11 +10,11 @@ public interface WarehouseDao {
 
     void updateStatus();
 
-    void findByLocation();
+    List<WarehouseVo> findByLocation(String location);
 
-    void findByName();
+    List<WarehouseVo> findByName(String name);
 
-    void findByType();
+    List<WarehouseVo> findByType(String type);
 
     List<WarehouseVo> findAll();
 
