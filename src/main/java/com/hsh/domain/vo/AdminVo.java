@@ -1,9 +1,8 @@
+package main.java.com.hsh.domain.vo;
+
 ///  Vo = 값 객체
 ///  특정 데이터를 한 묶음으로 표현하는 패키지.
-
-
 /// 1. 관리자 값 객체 Vo 구현
-package main.java.com.hsh.domain.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +10,8 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class Admin {
-    private Long adminId;           // 관리자 번호 (PK)
+public class AdminVo {
+    private Long adminId;           // 관리자 번호 ( PK)
     private String adminLoginId;    // 로그인 아이디
     private String password;        // 비밀번호
     private String adminName;       // 관리자 이름
