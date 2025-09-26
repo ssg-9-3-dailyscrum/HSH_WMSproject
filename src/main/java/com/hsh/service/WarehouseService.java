@@ -14,5 +14,5 @@ public interface WarehouseService {
 
     public List<WarehouseVo> searchByLocation(String location);
 
-//    public int chageStatus();
+    public boolean chageStatus(int warehouseId);
 }

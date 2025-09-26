@@ -34,6 +34,12 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
+    public boolean chageStatus(int warehouseId) {
+        int result = warehouseDao.updateStatus(warehouseId);
+        return result > 0; // 성공 여부만 리턴하자
+    }
+
+    @Override
     public List<WarehouseVo> getWarehouseList() {
         return warehouseDao.findAll();
     }
@@ -52,6 +58,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public List<WarehouseVo> searchByLocation(String location) {
         return warehouseDao.findByLocation(location);
     }
+
 
     // 테스트용으로 DAO를 바꾸고 싶으면 별도 init 메서드
 //    public void initDao(WarehouseDao warehouseDao) {

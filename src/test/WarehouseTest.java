@@ -12,7 +12,7 @@ public class WarehouseTest {
 //        view.runListWarehouse();
 //        view.printWarehouseByType();
 //        view.printWarehouseByLocation();
-        view.printWarehouseByName();
-
+//        view.printWarehouseByName();
+        view.updateWarehouseStatus();
     }
 }

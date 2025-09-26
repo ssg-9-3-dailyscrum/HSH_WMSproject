@@ -18,8 +18,20 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
-    public void updateStatus() {
+    public int updateStatus(int warehouseId) {
+        String sql = "CALL usp_Warehouse_UpdateStatus(?)";
 
+        try(
+                Connection conn  = DBUtil.getConnection();
+                CallableStatement call = conn.prepareCall(sql);
+        ){
+            call.setInt(1, warehouseId);
+            int result = call.executeUpdate();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     @Override

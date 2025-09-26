@@ -8,7 +8,7 @@ public interface WarehouseDao {
 
     void save();
 
-    void updateStatus();
+    int updateStatus(int warehouseId);
 
     List<WarehouseVo> findByLocation(String location);
 

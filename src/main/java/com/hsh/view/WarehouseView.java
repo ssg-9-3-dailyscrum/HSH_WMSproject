@@ -18,9 +18,34 @@ public class WarehouseView {
 
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+
     public void runListWarehouse(){
         List<WarehouseVo> warehouseList = warehouseController.listWarehouse();
         printWarehouseList(warehouseList);
+    }
+
+    public void updateWarehouseStatus() {
+        int warehouseId = inputUpdateWarehouseId();
+        boolean success = warehouseController.updateWarehouseStatus(warehouseId);
+        if(success){
+            System.out.println("창고 운용상태가 성공적으로 변경되었습니다.");
+        } else {
+            System.out.println("해당 번호의 창고가 없습니다. 창고 운용상태 변경에 실패하였습니다.");
+        }
+    }
+
+    public int inputUpdateWarehouseId() {
+        System.out.print("운용 상태를 수정할 창고의 번호를 입력하세요: ");
+        try {
+            return Integer.parseInt(reader.readLine().trim());
+        } catch (InputMismatchException e) {
+            e.printStackTrace();
+            System.out.println("잘못 입력하셨습니다.");
+            return 0; // 입력 오류 시 0 반환
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0; // 입력 오류 시 0 반환
+        }
     }
 
     public void printWarehouseByType() {
@@ -69,20 +94,6 @@ public class WarehouseView {
         } catch (IOException e) {
             e.printStackTrace();
             return ""; // 입력 오류 시 빈 문자열 반환
-        }
-    }
-
-    public int updateWarehouseStatus() {
-        System.out.print("운용 상태를 수정할 창고의 번호를 입력하세요: ");
-        try {
-            return Integer.parseInt(reader.readLine().trim());
-        } catch (InputMismatchException e) {
-            e.printStackTrace();
-            System.out.println("잘못 입력하셨습니다.");
-            return 0; // 입력 오류 시 0 반환
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 0; // 입력 오류 시 0 반환
         }
     }
 

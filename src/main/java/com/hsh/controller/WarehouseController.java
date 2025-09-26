@@ -27,6 +27,10 @@ public class WarehouseController {
         return instance; // 이미 있으면 기존 객체 반환
     }
 
+    public boolean updateWarehouseStatus(int warehouseId) {
+        return warehouseService.chageStatus(warehouseId);
+    }
+
     public List<WarehouseVo> listWarehouse() {
         return warehouseService.getWarehouseList();
     }
