@@ -23,4 +23,12 @@ public interface WarehouseDao {
 
     List<WarehouseVo> findAll();
 
+    List<WarehouseVo> findByLocationByUser(String location);
+
+    List<WarehouseVo> findByNameByUser(String name);
+
+    List<WarehouseVo> findByTypeByUser(String type);
+
+    List<WarehouseVo> findAllByUser();
+
 }

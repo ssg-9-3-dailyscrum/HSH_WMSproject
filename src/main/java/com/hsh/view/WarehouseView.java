@@ -74,20 +74,12 @@ public class WarehouseView {
     // 창고 운용상태 수정, warehouseid만 입력받으면 자동으로 상태 수정
     public void updateWarehouseStatus() {
         try {
-            System.out.print("운용 상태를 수정할 창고의 번호를 입력하세요: ");
+            System.out.print("운용 상태를 변경할 창고 번호를 입력하세요 (현재 Y면 N으로, N이면 Y로 자동 변경됩니다): ");
             int warehouseId = Integer.parseInt(reader.readLine().trim());
 
-            String status;
-            while (true) {
-                System.out.print("변경할 상태 입력 (Y/N): ");
-                status = reader.readLine().trim().toUpperCase();
-                if ("Y".equals(status) || "N".equals(status)) break;
-                System.out.println(":: 상태 값은 Y 또는 N만 입력 가능합니다. ::");
-            }
-
             boolean success = warehouseController.updateWarehouseStatus(warehouseId);
-            if (success) System.out.println(":: 창고 상태 변경 성공! ::");
-            else System.out.println(":: 창고 상태 변경 실패! ::");
+            if (success) System.out.println(":: 창고 상태 변경 성공! ::\n");
+            else System.out.println(":: 창고 상태 변경 실패! ::\n");
 
         } catch (IOException | NumberFormatException e) {
             System.out.println(":: 잘못된 입력입니다. ::");
