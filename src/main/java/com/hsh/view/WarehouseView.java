@@ -25,23 +25,50 @@ public class WarehouseView {
             System.out.println("============== 창고 등록 ==============");
             System.out.print("창고명: ");
             String name = reader.readLine().trim();
-            String typeChoice;
+            String type;
+            // type 검증
             while(true) {
                 System.out.println("창고 유형을 선택하세요:");
                 System.out.println("1. 대형창고");
                 System.out.println("2. 중형창고");
                 System.out.print("선택: ");
-                typeChoice = reader.readLine().trim();
-                if("1".equals(typeChoice) || "2".equals(typeChoice)){
+                String typeChoice = reader.readLine().trim();
+                if("1".equals(typeChoice)) {
+                    type = "대형창고";
+                    break;
+                } else if("2".equals(typeChoice)) {
+                    type = "중형창고";
                     break;
                 }
                 System.out.println(":: 잘못된 입력입니다. 1 또는 2를 선택하세요. ::");
             }
+            
+            // capacity 검증
+            int capacity;
+            while (true) {
+                try {
+                    System.out.print("창고 용량: ");
+                    capacity = Integer.parseInt(reader.readLine().trim());
+                    if (capacity <= 0) {
+                        System.out.println(":: 용량은 1 이상의 숫자여야 합니다. ::");
+                        continue;
+                    }
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println(":: 용량은 숫자만 입력 가능합니다. ::");
+                }
+            }
 
-            System.out.print("창고 용량: ");
-            String capacityStr = reader.readLine().trim(); // int 변환은 컨트롤러에서 처리
-            System.out.print("창고 상태 (Y/N): ");
-            String status = reader.readLine().trim().toUpperCase();
+            // status 검증
+            String status;
+            while(true){
+                System.out.print("창고 상태 (Y/N): ");
+                status = reader.readLine().trim().toUpperCase();
+                if("Y".equals(status) || "N".equals(status)){
+                    break;
+                }
+                System.out.println(":: 상태 값은 Y 또는 N만 입력 가능합니다. ::");
+            }
             System.out.print("창고 주소: ");
             String address = reader.readLine().trim();
 
@@ -50,7 +77,7 @@ public class WarehouseView {
             int adminId = 1;
 
             boolean result = warehouseController.addWarehouse(
-                    adminId, name, typeChoice, capacityStr, status, address
+                    adminId, name, type, capacity, status, address
             );
 
             if(result){
