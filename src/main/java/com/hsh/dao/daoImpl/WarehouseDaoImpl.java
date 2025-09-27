@@ -309,7 +309,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
 
     @Override
     public List<WarehouseVo> findAllByUser() {
-        List<WarehouseVo> warehouse = new ArrayList<WarehouseVo>();
+        List<WarehouseVo> warehouse = new ArrayList<>();
 
         String sql = "CALL usp_warehouse_selectAll()";
 

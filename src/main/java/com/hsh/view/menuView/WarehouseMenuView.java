@@ -12,6 +12,7 @@ public class WarehouseMenuView {
 
     private WarehouseController warehouseController = WarehouseController.getInstance();
     private WarehouseView warehouseView = new WarehouseView();
+    private WarehouseUserView warehouseUserView = new WarehouseUserView();
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public void warehouseMenu(){
@@ -43,16 +44,30 @@ public class WarehouseMenuView {
                 switch(choice) {
                     case 1 -> warehouseView.runListWarehouse();
                     case 2 -> warehouseView.printWarehouseByName();
-                    case 3 -> warehouseView.runListWarehouse();
-                    case 4 -> warehouseView.printWarehouseByName();
-                    case 5 -> warehouseView.printWarehouseByType();
-                    case 6 -> warehouseView.printWarehouseByLocation();
-                    case 7 -> flag = true;
+                    case 3 -> warehouseView.printWarehouseByType();
+                    case 4 -> warehouseView.printWarehouseByLocation();
+                    case 5 -> flag = true;
                     default -> System.out.println(":: 잘못된 입력입니다. ::");
                 }
             } else {
                 System.out.println(":: 권한이 없습니다. ::");
                 flag = true;
+            }
+        }
+    }
+
+    public void warehouseUserMenu(){
+        boolean flag = false;
+        while(!flag){
+            userMenu();
+            int choice = warehouseMenuChoice();
+            switch(choice) {
+                case 1 -> warehouseView.runListWarehouse();
+                case 2 -> warehouseView.printWarehouseByName();
+                case 3 -> warehouseView.printWarehouseByType();
+                case 4 -> warehouseView.printWarehouseByLocation();
+                case 5 -> flag = true;
+                default -> System.out.println(":: 잘못된 입력입니다. ::");
             }
         }
     }
@@ -93,9 +108,16 @@ public class WarehouseMenuView {
         System.out.println("======================================\n");
     }
 
-    public static void main(String[] args) {
-        WarehouseMenuView warehouseMenuView = new WarehouseMenuView();
-        warehouseMenuView.warehouseMenu();
+    public void userMenu() {
+        System.out.println("======================================");
+        System.out.println("                회원 메뉴             ");
+        System.out.println("======================================");
+        System.out.printf("%-3s %-20s\n", "1.", "창고 현황 리스트");
+        System.out.printf("%-3s %-20s\n", "2.", "창고명으로 창고 검색");
+        System.out.printf("%-3s %-20s\n", "3.", "창고 종류별 창고 검색");
+        System.out.printf("%-3s %-20s\n", "4.", "주소로 창고 검색");
+        System.out.printf("%-3s %-20s\n", "5.", "돌아가기");
+        System.out.println("======================================\n");
     }
 
 }

@@ -77,8 +77,24 @@ public class WarehouseServiceImpl implements WarehouseService {
         return warehouseDao.findByLocation(location);
     }
 
-    // 테스트용으로 DAO를 바꾸고 싶으면 별도 init 메서드
-//    public void initDao(WarehouseDao warehouseDao) {
-//        this.warehouseDao = warehouseDao;
-//    }
+    @Override
+    public List<WarehouseVo> getWarehouseListByUser() {
+        return warehouseDao.findAll();
+    }
+
+    @Override
+    public List<WarehouseVo> searchByTypeByUser(String type) {
+        return warehouseDao.findByType(type);
+    }
+
+    @Override
+    public List<WarehouseVo> searchByNameByUser(String name) {
+        return warehouseDao.findByName(name);
+    }
+
+    @Override
+    public List<WarehouseVo> searchByLocationByUser(String location) {
+        return warehouseDao.findByLocation(location);
+    }
+
 }
