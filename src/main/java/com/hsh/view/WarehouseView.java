@@ -18,97 +18,140 @@ public class WarehouseView {
 
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+    
+    // 창고 등록
+    public void registerWarehouse() {
+        try {
+            System.out.println("============== 창고 등록 ==============");
+            System.out.print("창고명: ");
+            String name = reader.readLine().trim();
+            String typeChoice;
+            while(true) {
+                System.out.println("창고 유형을 선택하세요:");
+                System.out.println("1. 대형창고");
+                System.out.println("2. 중형창고");
+                System.out.print("선택: ");
+                typeChoice = reader.readLine().trim();
+                if("1".equals(typeChoice) || "2".equals(typeChoice)){
+                    break;
+                }
+                System.out.println(":: 잘못된 입력입니다. 1 또는 2를 선택하세요. ::");
+            }
 
+            System.out.print("창고 용량: ");
+            String capacityStr = reader.readLine().trim(); // int 변환은 컨트롤러에서 처리
+            System.out.print("창고 상태 (Y/N): ");
+            String status = reader.readLine().trim().toUpperCase();
+            System.out.print("창고 주소: ");
+            String address = reader.readLine().trim();
+
+            // 로그인한 관리자 ID를 세션에서 가져온다고 가정
+//            int adminId = UserSession.getInstance().getLoggedInAdmin().getAdminId();
+            int adminId = 1;
+
+            boolean result = warehouseController.addWarehouse(
+                    adminId, name, typeChoice, capacityStr, status, address
+            );
+
+            if(result){
+                System.out.println(":: 성공적으로 창고가 등록되었습니다. ::");
+            } else {
+                System.out.println(":: 창고 등록에 실패하였습니다. 다시 시도해주세요. ::");
+            }
+
+        } catch (IOException e) {
+            System.out.println(":: 입력 오류 발생: " + e.getMessage());
+        }
+    }
+
+
+    // 창고 리스트 조회
     public void runListWarehouse(){
         List<WarehouseVo> warehouseList = warehouseController.listWarehouse();
         printWarehouseList(warehouseList);
     }
 
+    // 창고 운용상태 수정, warehouseid만 입력받으면 자동으로 상태 수정
     public void updateWarehouseStatus() {
-        int warehouseId = inputUpdateWarehouseId();
-        boolean success = warehouseController.updateWarehouseStatus(warehouseId);
-        if(success){
-            System.out.println("창고 운용상태가 성공적으로 변경되었습니다.");
-        } else {
-            System.out.println("해당 번호의 창고가 없습니다. 창고 운용상태 변경에 실패하였습니다.");
-        }
-    }
-
-    public int inputUpdateWarehouseId() {
-        System.out.print("운용 상태를 수정할 창고의 번호를 입력하세요: ");
         try {
-            return Integer.parseInt(reader.readLine().trim());
-        } catch (InputMismatchException e) {
-            e.printStackTrace();
-            System.out.println("잘못 입력하셨습니다.");
-            return 0; // 입력 오류 시 0 반환
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 0; // 입력 오류 시 0 반환
+            System.out.print("운용 상태를 수정할 창고의 번호를 입력하세요: ");
+            int warehouseId = Integer.parseInt(reader.readLine().trim());
+
+            String status;
+            while (true) {
+                System.out.print("변경할 상태 입력 (Y/N): ");
+                status = reader.readLine().trim().toUpperCase();
+                if ("Y".equals(status) || "N".equals(status)) break;
+                System.out.println(":: 상태 값은 Y 또는 N만 입력 가능합니다. ::");
+            }
+
+            boolean success = warehouseController.updateWarehouseStatus(warehouseId);
+            if (success) System.out.println(":: 창고 상태 변경 성공! ::");
+            else System.out.println(":: 창고 상태 변경 실패! ::");
+
+        } catch (IOException | NumberFormatException e) {
+            System.out.println(":: 잘못된 입력입니다. ::");
         }
     }
 
+    // 창고 유형별 조회
     public void printWarehouseByType() {
-        String type = inputWarehouseType();                         // 입력
-        List<WarehouseVo> warehouseList = warehouseController.getWarehouseByType(type); // Controller 호출
-        printWarehouseList(warehouseList);                          // 출력
-    }
-
-    // 매개변수 받아서 조회 1. 사용자로부터 창고 유형 입력 받기
-    public String inputWarehouseType() {
-        System.out.print("검색할 창고 유형을 입력하세요: ");
         try {
-            return reader.readLine().trim();
+            String typeChoice;
+            while (true) {
+                System.out.println("창고 유형 선택:");
+                System.out.println("1. 대형창고");
+                System.out.println("2. 중형창고");
+                System.out.print("선택: ");
+                typeChoice = reader.readLine().trim();
+                if ("1".equals(typeChoice) || "2".equals(typeChoice)) break;
+                System.out.println(":: 잘못된 입력입니다. 1 또는 2 선택 ::");
+            }
+
+            List<WarehouseVo> list = warehouseController.searchWarehouseByType(typeChoice);
+            if (list != null && !list.isEmpty()) printWarehouseList(list);
+            else System.out.println(":: 검색 결과가 없습니다. ::");
+
         } catch (IOException e) {
-            e.printStackTrace();
-            return ""; // 입력 오류 시 빈 문자열 반환
+            System.out.println(":: 입력 오류 발생 ::");
         }
     }
-
+    
+    // 창고 주소 검색 조회
     public void printWarehouseByLocation() {
-        String location = inputWarehouseLocation();                         // 입력
-        List<WarehouseVo> warehouseList = warehouseController.getWarehouseByLocation(location); // Controller 호출
-        printWarehouseList(warehouseList);                          // 출력
-    }
-
-    public String inputWarehouseLocation() {
-        System.out.print("검색할 창고 주소를 입력하세요: ");
         try {
-            return reader.readLine().trim();
+            System.out.print("검색할 창고 주소 입력: ");
+            String location = reader.readLine().trim();
+            List<WarehouseVo> list = warehouseController.getWarehouseByLocation(location);
+            if (list != null && !list.isEmpty()) printWarehouseList(list);
+            else System.out.println(":: 검색 결과가 없습니다. ::");
         } catch (IOException e) {
-            e.printStackTrace();
-            return ""; // 입력 오류 시 빈 문자열 반환
+            System.out.println(":: 입력 오류 발생 ::");
         }
     }
 
+    // 창고 이름 검색 조회
     public void printWarehouseByName() {
-        String name = inputWarehouseName();                         // 입력
-        List<WarehouseVo> warehouseList = warehouseController.getWarehouseByName(name); // Controller 호출
-        printWarehouseList(warehouseList);                          // 출력
-    }
-
-    public String inputWarehouseName() {
-        System.out.print("검색할 창고 이름을 입력하세요: ");
         try {
-            return reader.readLine().trim();
+            System.out.print("검색할 창고 이름 입력: ");
+            String name = reader.readLine().trim();
+            List<WarehouseVo> list = warehouseController.getWarehouseByName(name);
+            if (list != null && !list.isEmpty()) printWarehouseList(list);
+            else System.out.println(":: 검색 결과가 없습니다. ::");
         } catch (IOException e) {
-            e.printStackTrace();
-            return ""; // 입력 오류 시 빈 문자열 반환
+            System.out.println(":: 입력 오류 발생 ::");
         }
     }
 
+    // 창고 리스트 출력
     public void printWarehouseList(List<WarehouseVo> warehouseList) {
-//        String format1 = "| %-3s | %-5s | %-10s | %-18s | %-7s | %-5s | %-3s | %-10s | %-50s |%n";
         String format1 = "| %-3s | %-18s | %-7s | %-7s | %-5s | %-3s | %-10s | %-50s |%n";
-//        String format2 = "| %-3s | %-7s | %-10s | %-15s | %-6s | %-6s | %-4s | %-12s | %-40s |%n";
         String format2 = "| %-3s | %-15s | %-7s | %-7s | %6s | %4s | %12s | %-39s |%n";
-//        String line = "+-----+---------+--------------+----------------------+----------+--------+-------+--------------+-----------------------------------------------------+";
         String line = "+-----+----------------------+-----------+-----------+--------+------+--------------+-----------------------------------------------------+";
 
         System.out.println();
         System.out.println("================================================================= 창고 목록 =================================================================");
         System.out.println(line);
-//        System.out.printf(format1, "ID", "관리자ID", "관리자명", "창고명", "유형", "용량", "상태", "등록일", "주소");
         System.out.printf(format1, "ID", "창고명", "관리자명", "유형", "용량", "상태", "등록일", "주소");
         System.out.println(line);
 

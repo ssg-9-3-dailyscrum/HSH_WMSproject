@@ -13,8 +13,31 @@ import java.util.List;
 
 public class WarehouseDaoImpl implements WarehouseDao {
     @Override
-    public void save() {
+    public boolean save(int adminId,
+                        String warehouseName,
+                        String warehouseType,
+                        int warehouseCapacity,
+                        String warehouseStatus,
+                        String warehouseAddress) {
+        String sql = "CALL usp_Warehouse_Insert(?,?,?,?,?,?)";
 
+        try(
+                Connection conn  = DBUtil.getConnection();
+                CallableStatement call = conn.prepareCall(sql);
+        ) {
+            call.setInt(1, adminId);
+            call.setString(2, warehouseName);
+            call.setString(3, warehouseType);
+            call.setInt(4, warehouseCapacity);
+            call.setString(5, warehouseStatus);
+            call.setString(6, warehouseAddress);
+
+            int result = call.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

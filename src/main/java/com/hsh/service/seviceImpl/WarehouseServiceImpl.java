@@ -34,9 +34,27 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public boolean chageStatus(int warehouseId) {
+    public boolean registerWarehouse(int adminId,
+                                     String warehouseName,
+                                     String warehouseType,
+                                     int warehouseCapacity,
+                                     String warehouseStatus,
+                                     String warehouseAddress) {
+        return warehouseDao.save(
+                adminId,
+                warehouseName,
+                warehouseType,
+                warehouseCapacity,
+                warehouseStatus,
+                warehouseAddress
+        );
+    }
+
+    @Override
+    public boolean changeWarehouseStatus(int warehouseId) {
+        // DAO에서 프로시저 호출 → 자동 토글
         int result = warehouseDao.updateStatus(warehouseId);
-        return result > 0; // 성공 여부만 리턴하자
+        return result > 0; // 성공 여부 반환
     }
 
     @Override
@@ -58,7 +76,6 @@ public class WarehouseServiceImpl implements WarehouseService {
     public List<WarehouseVo> searchByLocation(String location) {
         return warehouseDao.findByLocation(location);
     }
-
 
     // 테스트용으로 DAO를 바꾸고 싶으면 별도 init 메서드
 //    public void initDao(WarehouseDao warehouseDao) {

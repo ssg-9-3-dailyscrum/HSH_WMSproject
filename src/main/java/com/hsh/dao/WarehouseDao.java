@@ -6,7 +6,12 @@ import java.util.List;
 
 public interface WarehouseDao {
 
-    void save();
+    boolean save(int adminId,
+                 String warehouseName,
+                 String warehouseType,
+                 int warehouseCapacity,
+                 String warehouseStatus,
+                 String warehouseAddress);
 
     int updateStatus(int warehouseId);
 
