@@ -1,4 +1,4 @@
-package main.java.com.hsh.service.seviceImpl;
+package main.java.com.hsh.service.serviceImpl;
 
 import main.java.com.hsh.dao.WarehouseDao;
 import main.java.com.hsh.dao.daoImpl.WarehouseDaoImpl;
