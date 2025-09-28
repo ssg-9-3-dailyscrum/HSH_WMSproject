@@ -1,8 +1,6 @@
 package test;
 
 import main.java.com.hsh.controller.WarehouseController;
-import main.java.com.hsh.service.WarehouseService;
-import main.java.com.hsh.service.seviceImpl.WarehouseServiceImpl;
 import main.java.com.hsh.view.WarehouseView;
 
 public class WarehouseTest {

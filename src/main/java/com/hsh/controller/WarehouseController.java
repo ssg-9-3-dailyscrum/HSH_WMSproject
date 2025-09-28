@@ -1,10 +1,8 @@
 package main.java.com.hsh.controller;
 
-import main.java.com.hsh.dao.WarehouseDao;
 import main.java.com.hsh.domain.vo.WarehouseVo;
 import main.java.com.hsh.service.WarehouseService;
-import main.java.com.hsh.service.seviceImpl.WarehouseServiceImpl;
-import main.java.com.hsh.view.WarehouseView;
+import main.java.com.hsh.service.serviceImpl.WarehouseServiceImpl;
 
 import java.util.List;
 
