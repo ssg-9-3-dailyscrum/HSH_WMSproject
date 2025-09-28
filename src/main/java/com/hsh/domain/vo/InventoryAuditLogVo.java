@@ -1,8 +1,11 @@
 package main.java.com.hsh.domain.vo;
 
+import lombok.Data;
+
 import java.util.Date;
 
-public class InveryotyAuditLog {
+@Data
+public class InventoryAuditLogVo {
     private int logId; // 로그ID
     private int inventoryId; // 재고ID
     private Date countDate; // 실사일시
