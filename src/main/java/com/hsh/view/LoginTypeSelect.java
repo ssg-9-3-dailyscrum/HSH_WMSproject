@@ -1,62 +1,116 @@
 package main.java.com.hsh.view;
 
 import main.java.com.hsh.controller.AdminLoginController;
+import main.java.com.hsh.controller.UserLoginController;
+import main.java.com.hsh.domain.vo.AdminVo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.InputMismatchException;
 
 public class LoginTypeSelect {
 
-    private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+    private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-    public int inputLoginType() {
-        System.out.println("====================== 창고관리시스템======================");
-        System.out.println("로그인 메뉴를 선택해주세요: ");
-        System.out.println("1 : 관리자 로그인");
-        System.out.println("2 : 회원 로그인");
+    public int inputMainMenu() throws IOException {
+        System.out.println("=================================================");
+        System.out.println("          보람삼조 창고관리시스템 메인 메뉴            ");
+        System.out.println("=================================================");
+        System.out.println("   1. 관리자");
+        System.out.println("   2. 회원");
+        System.out.println("   3. 종료");
+        System.out.println("-------------------------------------------------");
+        System.out.print("메뉴를 선택해주세요 : ");
+        return Integer.parseInt(input.readLine().trim());
+    }
 
-
-
-        try {
-            return Integer.parseInt(input.readLine().trim());
-        } catch (InputMismatchException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return 0;
+    public int inputSubMenu(String userType) throws IOException {
+        System.out.println("=================================================");
+        System.out.println("          [" + userType + " 메뉴]                 ");
+        System.out.println("=================================================");
+        System.out.println("   1. 로그인");
+        System.out.println("   2. 회원가입");
+        System.out.println("   3. 뒤로가기");
+        System.out.println("-------------------------------------------------");
+        System.out.print("메뉴를 선택해주세요 : ");
+        return Integer.parseInt(input.readLine().trim());
     }
 
     public LoginTypeSelect() throws IOException {
         AdminLoginController adminLoginController = AdminLoginController.getInstance();
-        int loginType = inputLoginType();
-        switch (loginType) {
-            case 1 -> {
-                System.out.println("==================== 관리자 로그인 ====================");
-                System.out.print("아이디: ");
-                String id = input.readLine();
-                System.out.print("비밀번호: ");
-                String pw = input.readLine();
-                boolean success = adminLoginController.adminLogin(id, pw);
-                if (success) {
-                    System.out.println("관리자 로그인 성공!");
-                } else {
-                    System.out.println("관리자 로그인 실패!");
+        UserLoginController userLoginController = UserLoginController.getInstance();
+
+        boolean running = true;
+        while (running) {
+            int mainChoice = inputMainMenu();
+
+            switch (mainChoice) {
+                case 1 -> { // 관리자
+                    boolean adminMenu = true;
+                    while (adminMenu) {
+                        int adminChoice = inputSubMenu("관리자");
+                        switch (adminChoice) {
+                            case 1 -> { // 로그인
+                                System.out.println("==================== 관리자 로그인 ====================");
+                                System.out.print("아이디: ");
+                                String id = input.readLine();
+                                System.out.print("비밀번호: ");
+                                String pw = input.readLine();
+
+                                AdminVo admin = adminLoginController.adminLogin(id, pw);
+                                if (admin != null) {
+                                    System.out.println(admin.getAdminName() + "님 로그인 성공!");
+                                    new AdminMenuView(admin);
+                                    adminMenu = false;
+                                } else {
+                                    System.out.println("관리자 로그인 실패! 아이디와 비밀번호를 확인해주세요.");
+                                }
+                            }
+                            case 2 -> { // 관리자 회원가입
+                                new AdminmembershipView().join(); // AdminmembershipView 호출
+                            }
+                            case 3 -> adminMenu = false; // 뒤로가기
+                            default -> System.out.println("잘못된 입력입니다.");
+                        }
+                    }
                 }
-            }
-//            case 2 -> UserMenu();
-            default -> {
-                System.out.println("잘못된 입력입니다.");
 
+                case 2 -> { // 회원
+                    boolean userMenu = true;
+                    while (userMenu) {
+                        int userChoice = inputSubMenu("보람삼조 회원");
+                        switch (userChoice) {
+                            case 1 -> { // 로그인
+                                System.out.println("==================== 회원 로그인 ====================");
+                                System.out.print("아이디: ");
+                                String id = input.readLine();
+                                System.out.print("비밀번호: ");
+                                String pw = input.readLine();
 
+                                boolean success = userLoginController.login(id, pw);
+                                if (success) {
+                                    new UserMenuView(); // UserMenuView 호출
+                                }
+                            }
+                            case 2 -> {
+
+                                new UsermembershipView().join();
+                            }
+                            case 3 -> userMenu = false; // 뒤로가기
+                            default -> System.out.println("잘못된 입력입니다.");
+                        }
+                    }
+                }
+
+                case 3 -> { // 종료
+                    System.out.println("시스템을 종료합니다.");
+                    running = false;
+                }
+
+                default -> System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
             }
         }
     }
-
 
     public static void main(String[] args) {
         try {
