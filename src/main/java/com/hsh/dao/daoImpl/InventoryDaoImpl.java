@@ -99,77 +99,107 @@ public class InventoryDaoImpl implements InventoryDao {
         return null;
     }
 
-//    @Override
-//    public List<String> showTopCategoryList(String userRole, Integer userId) throws SQLException {
-//        List<String> categories = new ArrayList<>();
-//        String sql = "CALL usp_Category_SelectTopList(?, ?)";
-//
-//        try (Connection conn = DBUtil.getConnection();
-//             CallableStatement call = conn.prepareCall(sql)) {
-//
-//            call.setString(1, userRole);
-//            call.setObject(2, userId);
-//
-//            try (ResultSet rs = call.executeQuery()) {
-//                while (rs.next()) {
-//                    categories.add(rs.getString("category_name"));
-//                }
-//            }
-//        }
-//        return categories;
-//    }
-//
-//    @Override
-//    public List<String> showSubCategoryList(String userRole, Integer userId, String topCategory) throws SQLException {
-//        List<String> categories = new ArrayList<>();
-//        String sql = "CALL usp_Category_SelectSubList(?, ?, ?)";
-//
-//        try (Connection conn = DBUtil.getConnection();
-//             CallableStatement call = conn.prepareCall(sql)) {
-//
-//            call.setString(1, userRole);
-//            call.setObject(2, userId);
-//            call.setString(3, topCategory);
-//
-//            try (ResultSet rs = call.executeQuery()) {
-//                while (rs.next()) {
-//                    categories.add(rs.getString("category_name"));
-//                }
-//            }
-//        }
-//        return categories;
-//    }
-//
-//
-//    @Override
-//    public List<InventoryVo> selectTopCategoryInventorySuperAdmin(String category) {
-//        return new ArrayList<>();
-//    }
-//
-//    @Override
-//    public List<InventoryVo> selectTopCategoryInventoryWhAdmin(int adminId, String category) {
-//        return new ArrayList<>();
-//    }
-//
-//    @Override
-//    public List<InventoryVo> selectTopCategoryInventoryMember(Integer userId, String category) {
-//        return new ArrayList<>();
-//    }
-//
-//    @Override
-//    public List<InventoryVo> selectSubCategoryInventorySuperAdmin(String category) {
-//        return new ArrayList<>();
-//    }
-//
-//    @Override
-//    public List<InventoryVo> selectSubCategoryInventoryWhAdmin(int adminId, String category) {
-//        return new ArrayList<>();
-//    }
-//
-//    @Override
-//    public List<InventoryVo> selectSubCategoryInventoryMember(int userId, String category) {
-//        return new ArrayList<>();
-//    }
+    // 대분류 카테고리 리스트
+    @Override
+    public List<String> selectTopCategoryList() {
+        List<String> categories = new ArrayList<>();
+        String sql = "CALL usp_Category_TopList()";
+
+        try (Connection conn = DBUtil.getConnection();
+             CallableStatement call = conn.prepareCall(sql)) {
+
+            try (ResultSet rs = call.executeQuery()) {
+                while (rs.next()) {
+                    categories.add(rs.getString("카테고리명"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
+
+    // 대분류 조회
+    @Override
+    public List<InventoryResponse> selectTopCategoryInventory(String categoryName) {
+        List<InventoryResponse> list = new ArrayList<>();
+        String sql = "CALL usp_Inventory_SelectTopCategory(?)";
+
+        try(Connection conn = DBUtil.getConnection();
+            CallableStatement call = conn.prepareCall(sql)) {
+
+            call.setString(1, categoryName);
+
+            try(ResultSet rs = call.executeQuery()) {
+                while(rs.next()) {
+                    InventoryResponse dto = new InventoryResponse();
+                    dto.setCategoryName(rs.getString("대분류"));
+                    dto.setProductId(rs.getInt("상품ID"));
+                    dto.setProductName(rs.getString("상품명"));
+                    dto.setWarehouseName(rs.getString("창고명"));
+                    dto.setSectionText(rs.getString("섹션명"));
+                    dto.setQuantity(rs.getInt("수량"));
+                    list.add(dto);
+                }
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 소분류 카테고리 리스트
+    @Override
+    public List<String> selectSubCategoryList(String topCategory) {
+        List<String> categories = new ArrayList<>();
+        String sql = "CALL usp_Category_SubList(?)";
+
+        try (Connection conn = DBUtil.getConnection();
+             CallableStatement call = conn.prepareCall(sql)) {
+
+            call.setString(1, topCategory);
+
+            try (ResultSet rs = call.executeQuery()) {
+                while (rs.next()) {
+                    categories.add(rs.getString("카테고리명"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
+
+    // 소분류 조회
+    @Override
+    public List<InventoryResponse> selectSubCategoryInventory(String categoryName) {
+        List<InventoryResponse> list = new ArrayList<>();
+        String sql = "CALL usp_Inventory_SelectSubCategory(?)";
+
+        try(Connection conn = DBUtil.getConnection();
+            CallableStatement call = conn.prepareCall(sql)) {
+
+            call.setString(1, categoryName);
+
+            try(ResultSet rs = call.executeQuery()) {
+                while(rs.next()) {
+                    InventoryResponse dto = new InventoryResponse();
+                    dto.setCategoryName(rs.getString("소분류"));
+                    dto.setProductId(rs.getInt("상품ID"));
+                    dto.setProductName(rs.getString("상품명"));
+                    dto.setWarehouseName(rs.getString("창고명"));
+                    dto.setSectionText(rs.getString("섹션명"));
+                    dto.setQuantity(rs.getInt("수량"));
+                    list.add(dto);
+                }
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     // 상품 상세 조회 : 총관리자
     @Override
@@ -253,7 +283,7 @@ public class InventoryDaoImpl implements InventoryDao {
                     dto.setProductName(rs.getString("상품명"));
                     dto.setProductColor(rs.getString("색상"));
                     dto.setPrice(rs.getString("가격"));
-                    dto.setMaterialCare(rs.getString("소재 및 관리"));
+                    dto.setMaterialCare(rs.getString("소재"));
                     dto.setDimensions(rs.getString("가로x세로x높이"));
                     dto.setContent(rs.getString("설명"));
                     dto.setLocationAndQuantity(rs.getString("위치 및 수량"));

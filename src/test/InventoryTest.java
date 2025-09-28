@@ -5,15 +5,12 @@ import main.java.com.hsh.util.UserSession;
 import main.java.com.hsh.view.InventoryMenuView;
 import main.java.com.hsh.view.InventoryView;
 import main.java.com.hsh.controller.InventoryController;
-import main.java.com.hsh.domain.dto.response.InventoryResponse;
-import main.java.com.hsh.domain.dto.response.ProductResponse;
-import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
-public class RealViewTest {
+public class InventoryTest {
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static InventoryController inventoryController = InventoryController.getInstance();
     private static InventoryView inventoryView = new InventoryView();
