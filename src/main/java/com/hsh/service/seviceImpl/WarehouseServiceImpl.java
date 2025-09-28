@@ -77,24 +77,26 @@ public class WarehouseServiceImpl implements WarehouseService {
         return warehouseDao.findByLocation(location);
     }
 
+
+    // 회원 메뉴
     @Override
     public List<WarehouseVo> getWarehouseListByUser() {
-        return warehouseDao.findAll();
+        return warehouseDao.findAllByUser();
     }
 
     @Override
     public List<WarehouseVo> searchByTypeByUser(String type) {
-        return warehouseDao.findByType(type);
+        return warehouseDao.findByTypeByUser(type);
     }
 
     @Override
     public List<WarehouseVo> searchByNameByUser(String name) {
-        return warehouseDao.findByName(name);
+        return warehouseDao.findByNameByUser(name);
     }
 
     @Override
     public List<WarehouseVo> searchByLocationByUser(String location) {
-        return warehouseDao.findByLocation(location);
+        return warehouseDao.findByLocationByUser(location);
     }
 
 }

@@ -59,16 +59,7 @@ public class WarehouseController {
     }
 
     public List<WarehouseVo> searchWarehouseByType(String typeChoice) {
-        String type;
-        switch (typeChoice) {
-            case "1" -> type = "대형창고";
-            case "2" -> type = "중형창고";
-            default -> {
-                System.out.println(":: 창고 유형 선택이 잘못되었습니다. ::");
-                return null;
-            }
-        }
-        return warehouseService.searchByType(type);
+        return warehouseService.searchByType(typeChoice);
     }
 
     public List<WarehouseVo> getWarehouseByName(String name) {
@@ -85,16 +76,7 @@ public class WarehouseController {
     }
 
     public List<WarehouseVo> searchWarehouseByTypeByUser(String typeChoice) {
-        String type;
-        switch (typeChoice) {
-            case "1" -> type = "대형창고";
-            case "2" -> type = "중형창고";
-            default -> {
-                System.out.println(":: 창고 유형 선택이 잘못되었습니다. ::");
-                return null;
-            }
-        }
-        return warehouseService.searchByType(type);
+        return warehouseService.searchByType(typeChoice);
     }
 
     public List<WarehouseVo> getWarehouseByNameByUser(String name) {
