@@ -14,5 +14,20 @@ public interface WarehouseService {
 
     public List<WarehouseVo> searchByLocation(String location);
 
-//    public int chageStatus();
+    public List<WarehouseVo> getWarehouseListByUser();
+
+    public List<WarehouseVo> searchByTypeByUser(String type);
+
+    public List<WarehouseVo> searchByNameByUser(String name);
+
+    public List<WarehouseVo> searchByLocationByUser(String location);
+
+    public boolean changeWarehouseStatus(int warehouseId);
+
+    boolean registerWarehouse(int adminId,
+                              String warehouseName,
+                              String warehouseType,
+                              int warehouseCapacity,
+                              String warehouseStatus,
+                              String warehouseAddress);
 }
