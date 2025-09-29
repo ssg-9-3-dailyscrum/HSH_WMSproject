@@ -25,7 +25,7 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     AdminVo admin = new AdminVo();
-                    admin.setAdminId(rs.getLong("admin_id"));
+                    admin.setAdminId(rs.getInt("admin_id"));
                     admin.setAdminLoginId(rs.getString("admin_login_id"));
                     admin.setPassword(rs.getString("password"));
                     admin.setAdminName(rs.getString("admin_name"));
@@ -106,7 +106,7 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
 
             while (rs.next()) {
                 AdminVo admin = new AdminVo();
-                admin.setAdminId(rs.getLong("admin_id"));
+                admin.setAdminId(rs.getInt("admin_id"));
                 admin.setAdminLoginId(rs.getString("admin_login_id"));
                 admin.setPassword(rs.getString("password"));
                 admin.setAdminName(rs.getString("admin_name"));

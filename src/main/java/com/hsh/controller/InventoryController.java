@@ -38,7 +38,7 @@ public class InventoryController {
     }
 
     // 대분류 조회
-        public List<InventoryResponse> showTopCategoryInventory(String categoryName) {
+    public List<InventoryResponse> showTopCategoryInventory(String categoryName) {
         return inventoryService.getTopCategoryInventory(categoryName);
     }
 
