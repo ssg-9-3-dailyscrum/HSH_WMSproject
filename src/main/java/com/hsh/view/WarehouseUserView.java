@@ -1,4 +1,4 @@
-package main.java.com.hsh.view.menuView;
+package main.java.com.hsh.view;
 
 import main.java.com.hsh.controller.WarehouseController;
 import main.java.com.hsh.domain.vo.WarehouseVo;

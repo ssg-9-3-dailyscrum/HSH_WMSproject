@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-<<<<<<< HEAD
-    <data-source source="LOCAL" name="railway@gondola.proxy.rlwy.net" uuid="b928edc9-e214-4442-a3ff-b39cf4ae9977">
-=======
-    <data-source source="LOCAL" name="HSH_MySQL" uuid="c521eec7-28e1-4642-8b8c-8a2014e93537">
->>>>>>> develop
+    <data-source source="LOCAL" name="railway@gondola.proxy.rlwy.net" uuid="f24e96ff-46ba-428c-8715-62fcb03ea12c">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://root:HCZMeXYxmlIqJvUCuMnALuhtfMlIbllC@gondola.proxy.rlwy.net:28068/railway</jdbc-url>
+      <jdbc-url>jdbc:mysql://gondola.proxy.rlwy.net:28068/railway</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
