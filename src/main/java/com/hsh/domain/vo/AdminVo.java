@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class AdminVo {
-    private Long adminId;
+    private int adminId;
     private String adminLoginId;
     private String password;
     private String adminName;
