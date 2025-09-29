@@ -24,10 +24,19 @@ public class InboundController {
         return service.cancelRequest(inboundId);
     }
 
+    // InboundController.java
+    public boolean updateRequest(InboundRequestDto req) {
+        return service.updateRequest(req);
+    }
+
+
+
+
     // userType: 1=총관리자, 2=창고관리자, 3=회원
     public List<InboundResponseDto> getInboundList(int userType, int userId) {
         return service.getInboundList(userType, userId);
     }
+
 
     public InboundResponseDto getInboundDetail(int inboundId, int userType, int userId) {
         return service.getInboundDetail(inboundId, userType, userId);

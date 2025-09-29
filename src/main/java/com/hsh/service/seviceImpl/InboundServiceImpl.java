@@ -33,6 +33,17 @@ public class InboundServiceImpl implements InboundService {
         return dao.getAllInbound(userType, userId);
     }
 
+    // InboundServiceImpl.java
+    @Override
+    public boolean updateRequest(InboundRequestDto req) {
+        return dao.updateInboundByMember(req); // 위 DAO 수정으로 정상 작동
+    }
+
+
+
+
+
+
     @Override
     public InboundResponseDto getInboundDetail(int inboundId, int userType, int userId) {
         return dao.getInboundDetail(inboundId, userType, userId);
