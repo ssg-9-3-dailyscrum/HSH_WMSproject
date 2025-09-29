@@ -51,22 +51,29 @@ public class InventoryServiceImpl implements InventoryService {
         }
     }
 
-//    // 대분류 카테고리 리스트
-//    @Override
-//    public List<String> getTopCategoryList(String userRole, Integer userId) throws SQLException {
-//        return inventoryDao.selectTopCategoryList(userRole, userId);
-//    }
-//
-//    // 소분류 카테고리 리스트
-//    @Override
-//    public List<String> getSubCategoryList(String userRole, Integer userId, String topCategory) throws SQLException {
-//        return inventoryDao.selectSubCategoryList(userRole, userId, topCategory);
-//    }
-//
-//    @Override
-//    public List<InventoryResponse> getCategoryInventory() {
-//
-//    }
+    // 대분류 카테고리 리스트
+    @Override
+    public List<String> getTopCategoryList() {
+        return inventoryDao.selectTopCategoryList();
+    }
+
+    // 대분류 조회
+    @Override
+    public List<InventoryResponse> getTopCategoryInventory(String categoryName) {
+        return inventoryDao.selectTopCategoryInventory(categoryName);
+    }
+
+    // 소분류 카테고리 리스트
+    @Override
+    public List<String> getSubCategoryList(String topCategory) {
+        return inventoryDao.selectSubCategoryList(topCategory);
+    }
+
+    // 소분류 조회
+    @Override
+    public List<InventoryResponse> getSubCategoryInventory(String categoryName) {
+        return inventoryDao.selectSubCategoryInventory(categoryName);
+    }
 
     // 상품 상세 조회
     @Override
