@@ -32,18 +32,25 @@ public class InventoryController {
         return inventoryService.getAllInventory(userRole, userId);
     }
 
-//    // 대분류, 소분류 리스트
-//    public List<String> showTopCategoryList() throws SQLException {
-//        return inventoryService.getTopCategoryList(userRole, userId);
-//    }
-//
-//    public List<String> showSubCategoryList() throws SQLException {
-//        return inventoryService.getSubCategoryList(userRole, userId, category);
-//    }
-//
-//    public List<InventoryResponse> showTopCategoryInventory() {
-//        return inventoryService.getCategoryInventory(userRole, userId);
-//    }
+    // 대분류 리스트
+    public List<String> showTopCategoryList() {
+        return inventoryService.getTopCategoryList();
+    }
+
+    // 대분류 조회
+        public List<InventoryResponse> showTopCategoryInventory(String categoryName) {
+        return inventoryService.getTopCategoryInventory(categoryName);
+    }
+
+    // 소분류 리스트
+    public List<String> showSubCategoryList(String category)  {
+        return inventoryService.getSubCategoryList(category);
+    }
+
+    // 소분류 조회
+    public List<InventoryResponse> showSubCategoryInventory(String categoryName) {
+        return inventoryService.getSubCategoryInventory(categoryName);
+    }
 
     // 상품 상세 조회
     public List<ProductResponse> showProductDetail(String productName) {
