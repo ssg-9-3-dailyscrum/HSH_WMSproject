@@ -13,15 +13,16 @@ public interface InventoryDao {
     List<InventoryResponse> selectAllInventoryWhAdmin(int adminId);
     List<InventoryResponse> selectAllInventoryMember(int memberId);
 
-//    // 대분류, 소분류 카테고리 리스트
-//    List<String> selectTopCategoryList(String userRole, Integer userId) throws SQLException;
-//    List<String> selectSubCategoryList(String userRole, Integer userId, String topCategory) throws SQLException;
+    // 대분류 카테고리 리스트
+    List<String> selectTopCategoryList() ;
+    // 대분류 조회
+    List<InventoryResponse> selectTopCategoryInventory(String categoryName);
 
-    // 소분류 카테고리별 조회
-//    List<InventoryVo> selectSubCategoryInventorySuperAdmin(String category);
-//    List<InventoryVo> selectSubCategoryInventoryWhAdmin(int adminId, String category);
-//    List<InventoryVo> selectSubCategoryInventoryMember(int userId, String category);
-//
+    // 소분류 카테고리 리스트
+    List<String> selectSubCategoryList(String topCategory);
+    // 소분류 조회
+    List<InventoryResponse> selectSubCategoryInventory(String categoryName);
+
     // 상품 상세 조회
     List<ProductResponse> selectProductDetailSuperAdmin(String productName);
     List<ProductResponse> selectProductDetailWhAdmin(int adminId, String productName);
