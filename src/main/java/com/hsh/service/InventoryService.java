@@ -1,5 +1,6 @@
 package main.java.com.hsh.service;
 
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
 import main.java.com.hsh.domain.dto.response.InventoryResponse;
 import main.java.com.hsh.domain.dto.response.ProductResponse;
 import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
@@ -19,4 +20,6 @@ public interface InventoryService {
 
     List<ProductResponse> getProductDetail(String userRole, Integer userId, String productName); // 상품 상세 조회
     List<WarehouseStatusResponse> getWarehouse(); // 창고 현황 조회
+
+    List<InventoryAuditResponse> getInventoryAuditLog(String userRole, Integer userId); // 재고 실사 조회
 }

@@ -64,6 +64,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public List<WarehouseVo> searchByType(String type) {
+        if (type.equals("1")) {
+            type = "대형창고";
+        } else if (type.equals("2")) {
+            type = "중형창고";
+        }
         return warehouseDao.findByType(type);
     }
 
@@ -86,6 +91,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public List<WarehouseVo> searchByTypeByUser(String type) {
+        if (type.equals("1")) {
+            type = "대형창고";
+        } else if (type.equals("2")) {
+            type = "중형창고";
+        }
         return warehouseDao.findByTypeByUser(type);
     }
 

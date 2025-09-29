@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="railway@gondola.proxy.rlwy.net" uuid="198e4476-e76c-43ad-bc11-468ef60eeceb">
+    <data-source source="LOCAL" name="railway@gondola.proxy.rlwy.net" uuid="f24e96ff-46ba-428c-8715-62fcb03ea12c">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

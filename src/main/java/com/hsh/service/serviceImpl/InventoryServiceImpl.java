@@ -1,14 +1,14 @@
-package main.java.com.hsh.service.seviceImpl;
+package main.java.com.hsh.service.serviceImpl;
 
 import main.java.com.hsh.dao.InventoryDao;
 import main.java.com.hsh.dao.daoImpl.InventoryDaoImpl;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
 import main.java.com.hsh.domain.dto.response.InventoryResponse;
 
 import main.java.com.hsh.domain.dto.response.ProductResponse;
 import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
 import main.java.com.hsh.service.InventoryService;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,15 +32,15 @@ public class InventoryServiceImpl implements InventoryService {
     public List<InventoryResponse> getAllInventory(String userRole, int userId) {
         try {
             // 권한별로 CASE
-            switch (userRole.toUpperCase()) {
+            switch (userRole) {
                 // 총관리자
-                case "SUPER_ADMIN":
+                case "총관리자":
                     return inventoryDao.selectAllInventorySuperAdmin();
                 // 창고 관리자
-                case "WH_ADMIN":
+                case "창고관리자":
                     return inventoryDao.selectAllInventoryWhAdmin(userId);
                 // 회원
-                case "MEMBER":
+                case "회원":
                     return inventoryDao.selectAllInventoryMember(userId);
                 default:
                     throw new IllegalArgumentException("유효하지 않은 사용자입니다.");
@@ -80,15 +80,15 @@ public class InventoryServiceImpl implements InventoryService {
     public List<ProductResponse> getProductDetail(String userRole, Integer userId, String productName) {
         try {
             // 권한별로 CASE
-            switch (userRole.toUpperCase()) {
+            switch (userRole) {
                 // 총관리자
-                case "SUPER_ADMIN":
+                case "총관리자":
                     return inventoryDao.selectProductDetailSuperAdmin(productName);
                 // 창고 관리자
-                case "WH_ADMIN":
+                case "창고관리자":
                     return inventoryDao.selectProductDetailWhAdmin(userId, productName);
                 // 회원
-                case "MEMBER":
+                case "회원":
                     return inventoryDao.selectProductDetailMember(userId, productName);
                 default:
                     throw new IllegalArgumentException("유효하지 않은 사용자입니다.");
@@ -103,5 +103,26 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public List<WarehouseStatusResponse> getWarehouse() {
         return inventoryDao.selectWarehouse();
+    }
+
+    // 재고 실사 조회
+    @Override
+    public List<InventoryAuditResponse> getInventoryAuditLog(String userRole, Integer userId) {
+        try {
+            // 권한별로 CASE
+            switch (userRole) {
+                // 총관리자
+                case "총관리자":
+                    return inventoryDao.selectInventoryAuditLogSuperAdmin();
+                // 창고 관리자
+                case "창고관리자":
+                    return inventoryDao.selectInventoryAuditLogWhAdmin(userId);
+                default:
+                    throw new IllegalArgumentException("유효하지 않은 사용자입니다.");
+            }
+        } catch (Exception e) {
+            System.out.println("재고 조회 오류 발생 : " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
 }
