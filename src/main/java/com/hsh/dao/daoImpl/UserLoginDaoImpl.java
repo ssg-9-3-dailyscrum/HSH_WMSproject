@@ -21,7 +21,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
     // ResultSet의 데이터를 UserVo 객체로 매핑
     private UserVo mapResultSetToUserVo(ResultSet rs) throws SQLException {
         UserVo user = new UserVo();
-        user.setMemberId(rs.getLong("member_id"));
+        user.setMemberId(rs.getInt("member_id"));
         user.setUserLoginId(rs.getString("user_login_id"));
         user.setPassword(rs.getString("password"));
         user.setName(rs.getString("name"));

@@ -101,21 +101,21 @@ public class InventoryMenuView {
 
     // 카테고리별 재고 조회
     private void handleCategoryInventory() throws IOException {
-            System.out.println("\n========= 카테고리별 재고 조회 =========");
-            System.out.println("1. 대분류 조회");
-            System.out.println("2. 나가기");
-            System.out.print("선택: ");
-            String input = br.readLine().trim();
+        System.out.println("\n========= 카테고리별 재고 조회 =========");
+        System.out.println("1. 대분류 조회");
+        System.out.println("2. 나가기");
+        System.out.print("선택: ");
+        String input = br.readLine().trim();
 
-            switch (input) {
-                case "1":
-                    handleTopCategorySearch();
-                    break;
-                case "2":
-                    break;
-                default:
-                    System.out.println("잘못된 번호입니다.");
-            }
+        switch (input) {
+            case "1":
+                handleTopCategorySearch();
+                break;
+            case "2":
+                break;
+            default:
+                System.out.println("잘못된 번호입니다.");
+        }
     }
 
     private void handleTopCategorySearch() throws IOException {
@@ -156,21 +156,21 @@ public class InventoryMenuView {
 
     // 소분류 조회 옵션
     private void showSubCategoryOption(String selectedTopCategory) throws IOException {
-            System.out.println("\n========= 카테고리별 재고 조회 =========");
-            System.out.println("1. 소분류 조회");
-            System.out.println("2. 나가기");
-            System.out.print("선택: ");
-            String input = br.readLine().trim();
+        System.out.println("\n========= 카테고리별 재고 조회 =========");
+        System.out.println("1. 소분류 조회");
+        System.out.println("2. 나가기");
+        System.out.print("선택: ");
+        String input = br.readLine().trim();
 
-            switch (input) {
-                case "1":
-                    handleSubCategorySearch(selectedTopCategory);
-                    break;
-                case "2":
-                    break;
-                default:
-                    System.out.println("잘못된 번호입니다.");
-            }
+        switch (input) {
+            case "1":
+                handleSubCategorySearch(selectedTopCategory);
+                break;
+            case "2":
+                break;
+            default:
+                System.out.println("잘못된 번호입니다.");
+        }
 
     }
 
