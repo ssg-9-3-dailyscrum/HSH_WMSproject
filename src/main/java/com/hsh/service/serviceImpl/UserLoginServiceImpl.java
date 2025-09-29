@@ -1,7 +1,7 @@
 package main.java.com.hsh.service.serviceImpl;
 
-import main.java.com.hsh.Dao.UserLoginDao;
-import main.java.com.hsh.Dao.daoImpl.UserLoginDaoImpl;
+import main.java.com.hsh.dao.UserLoginDao;
+import main.java.com.hsh.dao.daoImpl.UserLoginDaoImpl;
 import main.java.com.hsh.domain.vo.UserVo;
 import main.java.com.hsh.service.UserLoginService;
 

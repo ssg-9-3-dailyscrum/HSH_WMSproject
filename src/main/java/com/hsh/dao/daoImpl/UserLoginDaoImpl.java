@@ -1,6 +1,6 @@
-package main.java.com.hsh.Dao.daoImpl;
+package main.java.com.hsh.dao.daoImpl;
 
-import main.java.com.hsh.Dao.UserLoginDao;
+import main.java.com.hsh.dao.UserLoginDao;
 import main.java.com.hsh.domain.vo.UserVo;
 import java.sql.*;
 import java.util.ArrayList;

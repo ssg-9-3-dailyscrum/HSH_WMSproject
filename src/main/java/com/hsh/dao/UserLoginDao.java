@@ -1,4 +1,4 @@
-package main.java.com.hsh.Dao;
+package main.java.com.hsh.dao;
 
 import main.java.com.hsh.domain.vo.UserVo;
 

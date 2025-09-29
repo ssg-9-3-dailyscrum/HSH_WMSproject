@@ -30,7 +30,7 @@ public class AdminmembershipView {
         System.out.print("권한 입력 (예: 총관리자, 창고관리자): ");
         String role = input.readLine().trim();
 
-        System.out.print("계정상태 (Y/N)입력 : ");
+
 
         /// AdminVo 객체 생성 시 department 포함
 
