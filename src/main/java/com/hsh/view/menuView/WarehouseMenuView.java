@@ -1,6 +1,7 @@
 package main.java.com.hsh.view.menuView;
 
 import main.java.com.hsh.controller.WarehouseController;
+import main.java.com.hsh.session.AdminSession;
 import main.java.com.hsh.view.WarehouseUserView;
 import main.java.com.hsh.view.WarehouseView;
 
@@ -17,9 +18,9 @@ public class WarehouseMenuView {
 
     public void warehouseMenu(){
                 
-//        String role = AdminSession.getInstance().getLoggedInadmin().getRole();
+        String role = AdminSession.getInstance().getRole();
         // 테스트를 위해 총관리자라고 선언 - 추후 삭제
-        String role = "총관리자";
+//        String role = "총관리자";
 
         boolean flag = false;
         while(!flag){
