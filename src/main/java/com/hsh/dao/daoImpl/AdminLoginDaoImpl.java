@@ -1,6 +1,6 @@
-package main.java.com.hsh.Dao.daoImpl;
+package main.java.com.hsh.dao.daoImpl;
 
-import main.java.com.hsh.Dao.AdminLoginDao;
+import main.java.com.hsh.dao.AdminLoginDao;
 import main.java.com.hsh.domain.vo.AdminVo;
 import java.sql.*;
 import java.util.ArrayList;
@@ -83,20 +83,22 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
         return 0;
     }
 
-    // 관리자 삭제
+
+    // 관리자 비활성화
     @Override
-    public int deleteAdmin(String adminLoginId) {
-        String sql = "DELETE FROM Admin WHERE admin_login_id = ?";
+    public int deactivateAdmin(String adminLoginId) {
+        String sql = "UPDATE Admin SET admin_status = 'N' WHERE admin_login_id = ?";
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, adminLoginId);
             return pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("관리자 삭제 오류: " + e.getMessage());
+            System.err.println("관리자 비활성화 오류: " + e.getMessage());
         }
         return 0;
     }
+
 
     // 총관리자 제외 모든 계정 조회
     @Override

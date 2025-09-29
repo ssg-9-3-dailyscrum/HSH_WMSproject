@@ -29,9 +29,9 @@ public class AdminManageView {
                 int choice = displaySubMenu();
 
                 switch (choice) {
-                    case 1 -> viewMyInfo();          // R: 내 정보 조회
-                    case 2 -> updateMyInfo();        // U: 내 정보 수정
-                    case 3 -> deleteMyAccount();     // D: 계정 삭제(비활성화)
+                    case 1 -> viewMyInfo();
+                    case 2 -> updateMyInfo();
+                    case 3 -> deleteMyAccount();
                     case 4 -> {                      // 로그아웃
                         adminController.logout();
                         running = false;
@@ -69,7 +69,7 @@ public class AdminManageView {
             System.out.println("이름: " + info.getAdminName());
             System.out.println("부서: " + info.getDepartment());
             System.out.println("권한: " + info.getRole());
-            System.out.println("상태: " + ("Y".equals(info.getAdminStatus()) ? "활성" : "비활성"));
+
             System.out.println("=====================================================");
         } else {
             System.out.println("정보를 불러올 수 없습니다.");
@@ -119,7 +119,7 @@ public class AdminManageView {
             if (adminController.updateAdmin(current)) {
                 System.out.println("계정이 비활성화되었습니다. 로그아웃됩니다.");
                 adminController.logout();
-                System.exit(0); // 프로그램 종료 (원하면 return 으로 바꿀 수 있음)
+                System.exit(0);
             } else {
                 System.out.println("계정 삭제 실패");
             }

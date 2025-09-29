@@ -1,12 +1,13 @@
 package main.java.com.hsh.controller;
 
-import main.java.com.hsh.Dao.UserLoginDao;
-import main.java.com.hsh.Dao.daoImpl.UserLoginDaoImpl;
+import main.java.com.hsh.dao.UserLoginDao;
+import main.java.com.hsh.dao.daoImpl.UserLoginDaoImpl;
 import main.java.com.hsh.domain.vo.UserVo;
 
 public class UserMembershipController {
 
     private static UserMembershipController instance = new UserMembershipController();
+
     private final UserLoginDao userDao = new UserLoginDaoImpl();
 
     private UserMembershipController() {}

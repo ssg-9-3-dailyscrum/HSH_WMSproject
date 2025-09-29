@@ -65,16 +65,17 @@ public class AdminLoginController {
         return false;
     }
 
-    /// 관리자 삭제 (비활성화 처리 가능)
-    public boolean deleteAdmin(String adminLoginId) {
-        int result = adminLoginService.deleteAdmin(adminLoginId);
+    /// 관리자 비활성화
+    public boolean deactivateAdmin(String adminLoginId) {
+        int result = adminLoginService.deactivateAdmin(adminLoginId);
         if (result > 0) {
-            System.out.println(adminLoginId + " 관리자 계정 삭제 완료!");
+            System.out.println(adminLoginId + " 관리자 계정 비활성화 완료!");
             return true;
         }
-        System.out.println("관리자 계정 삭제 실패!");
+        System.out.println("관리자 계정 비활성화 실패");
         return false;
     }
+
 
     /// 특정 관리자 조회 (관리자 ID 기준)
     public AdminVo getAdminById(Integer adminId) {

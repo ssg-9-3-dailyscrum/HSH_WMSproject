@@ -1,10 +1,11 @@
 package main.java.com.hsh.service.serviceImpl;
 
-import main.java.com.hsh.Dao.AdminLoginDao;
-import main.java.com.hsh.Dao.daoImpl.AdminLoginDaoImpl;
+import main.java.com.hsh.dao.AdminLoginDao;
+import main.java.com.hsh.dao.daoImpl.AdminLoginDaoImpl;
 import main.java.com.hsh.domain.vo.AdminVo;
 import main.java.com.hsh.service.AdminLoginService;
 import main.java.com.hsh.session.AdminSession;
+
 import java.util.List;
 
 public class AdminLoginServiceImpl implements AdminLoginService {
@@ -40,19 +41,17 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     }
 
     @Override
-    public int deleteAdmin(String adminLoginId) {
-        return adminLoginDao.deleteAdmin(adminLoginId);
-    }
-
-    // 총관리자 제외 모든 관리자/회원 조회
-    @Override
     public List<AdminVo> selectAllExceptSuperAdmin() {
         return ((AdminLoginDaoImpl) adminLoginDao).selectAllExceptSuperAdmin();
     }
 
-
     @Override
     public AdminVo getAdminById(Integer adminId) {
         return adminLoginDao.getAdminById(adminId);
+    }
+
+    @Override
+    public int deactivateAdmin(String adminLoginId) {
+        return adminLoginDao.deactivateAdmin(adminLoginId);
     }
 }

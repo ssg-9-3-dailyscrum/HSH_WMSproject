@@ -26,21 +26,34 @@ public class LoginTypeSelectView {
         System.out.println("   2. 회원");
         System.out.println("   3. 종료");
         System.out.println("-------------------------------------------------");
-        System.out.print("메뉴를 선택해주세요 : ");
+
         return Integer.parseInt(input.readLine().trim());
     }
 
-    ///서브 메뉴 출력
+    /// 서브 메뉴 출력 (안전하게 숫자 입력 처리)
     public int inputSubMenu(String userType) throws IOException {
-        System.out.println("=================================================");
-        System.out.println("          [" + userType + " 메뉴]                 ");
-        System.out.println("=================================================");
-        System.out.println("   1. 로그인");
-        System.out.println("   2. 회원가입");
-        System.out.println("   3. 뒤로가기");
-        System.out.println("-------------------------------------------------");
-        System.out.print("메뉴를 선택해주세요 : ");
-        return Integer.parseInt(input.readLine().trim());
+        while (true) {
+            System.out.println("=================================================");
+            System.out.println("          [" + userType + " 메뉴]                 ");
+            System.out.println("=================================================");
+            System.out.println("   1. 로그인");
+            System.out.println("   2. 회원가입");
+            System.out.println("   3. 뒤로가기");
+            System.out.println("-------------------------------------------------");
+
+
+            String line = input.readLine().trim();
+            try {
+                int choice = Integer.parseInt(line);
+                if (choice >= 1 && choice <= 3) {
+                    return choice;
+                } else {
+                    System.out.println("잘못된 입력입니다  1~3 사이의 숫자를 입력해주세요.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("잘못된 입력입니다. 다시 입력해주세요");
+            }
+        }
     }
 
     public LoginTypeSelectView() throws IOException {
@@ -70,11 +83,10 @@ public class LoginTypeSelectView {
                                     AdminSession.getInstance().login(admin.getAdminId(), admin.getRole(), admin.getAdminName());
                                     System.out.println(admin.getAdminName() + "님 로그인 성공! (ID: " + admin.getAdminId() + ")");
 
-
                                     new AdminMenuView(admin);
                                     adminMenu = false;
                                 } else {
-                                    System.out.println("관리자 로그인 실패! 아이디와 비밀번호를 확인해주세요.");
+                                    System.out.println("관리자 로그인 실패 아이디와 비밀번호를 확인해주세요.");
                                 }
                             }
                             case 2 -> { // 관리자 회원가입
@@ -108,7 +120,7 @@ public class LoginTypeSelectView {
                                     new UserMenuView();
                                     userMenu = false;
                                 } else {
-                                    System.out.println("회원 로그인 실패! 아이디와 비밀번호를 확인해주세요.");
+                                    System.out.println("회원 로그인 실패 아이디와 비밀번호를 확인해주세요.");
                                 }
                             }
                             case 2 -> { // 회원가입
