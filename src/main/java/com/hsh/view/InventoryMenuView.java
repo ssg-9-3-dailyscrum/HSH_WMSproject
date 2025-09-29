@@ -91,105 +91,105 @@ public class InventoryMenuView {
         inventoryView.displayAllInventory(inventoryList);
     }
 
-//    // 카테고리별 재고 조회
-//    private void handleCategoryInventory() throws IOException {
-//        boolean loop = true;
-//        while (loop) {
-//            System.out.println("\n========= 카테고리별 재고 조회 =========");
-//            System.out.println("1. 대분류 조회");
-//            System.out.println("2. 돌아가기");
-//            String input = br.readLine().trim();
-//
-//            switch (input) {
-//                case "1":
-//                    handleTopCategorySearch();
-//                    break;
-//                case "2":
-//                    loop = false;
-//                    break;
-//                default:
-//                    System.out.println("잘못된 번호입니다.");
-//            }
-//        }
-//    }
-//
-//    private void handleTopCategorySearch() throws IOException {
-//        // 1. 대분류 목록 표시
-//        List<String> topCategories = inventoryController.showTopCategoryList();
-//
-//        if (topCategories.isEmpty()) {
-//            System.out.println("조회 가능한 대분류가 없습니다.");
-//            return;
-//        }
-//
-//        System.out.println("\n========= 대분류 목록 =========");
-//        for (int i = 0; i < topCategories.size(); i++) {
-//            System.out.println((i + 1) + ". " + topCategories.get(i));
-//        }
-//
-//        try {
-//            int choice = Integer.parseInt(br.readLine().trim());
-//            if (choice < 1 || choice > topCategories.size()) {
-//                System.out.println("잘못된 번호입니다.");
-//                return;
-//            }
-//
-//            String selectedTopCategory = topCategories.get(choice - 1);
-//
-//            // 선택한 대분류의 재고 조회 및 출력
-//            List<InventoryResponse> inventoryList = inventoryController.showTopCategoryInventory(selectedTopCategory);
-//            inventoryView.displayCategoryInventory(inventoryList, selectedTopCategory, "대분류");
-//
-//            // 소분류 조회 옵션 제공
-//            showSubCategoryOption(selectedTopCategory);
-//
-//        } catch (NumberFormatException e) {
-//            System.out.println("올바른 숫자를 입력해주세요.");
-//        }
-//    }
-//
-//    private void showSubCategoryOption(String selectedTopCategory) throws IOException {
-//        System.out.println("\n1. 소분류 조회");
-//        System.out.println("2. 나가기");
-//        String choice = br.readLine().trim();
-//
-//        if ("1".equals(choice)) {
-//            handleSubCategorySearch(selectedTopCategory);
-//        }
-//    }
-//
-//    private void handleSubCategorySearch(String topCategory) throws IOException {
-//        // 선택한 대분류의 소분류 목록 조회
-//        List<String> subCategories = inventoryController.getSubCategoryList(topCategory);
-//
-//        if (subCategories.isEmpty()) {
-//            System.out.println("해당 소분류가 없습니다.");
-//            return;
-//        }
-//
-//        System.out.println("\n========= 소분류 목록 =========");
-//        for (int i = 0; i < subCategories.size(); i++) {
-//            System.out.println((i + 1) + ". " + subCategories.get(i));
-//        }
-//        System.out.print("선택: ");
-//
-//        try {
-//            int choice = Integer.parseInt(br.readLine().trim());
-//            if (choice < 1 || choice > subCategories.size()) {
-//                System.out.println("잘못된 번호입니다.");
-//                return;
-//            }
-//
-//            String selectedSubCategory = subCategories.get(choice - 1);
-//
-//            // 선택한 소분류의 재고 조회 및 출력
-//            List<InventoryResponse> inventoryList = inventoryController.getSubCategoryInventory(selectedSubCategory);
-//            inventoryView.displayCategoryInventory(inventoryList, selectedSubCategory, "소분류");
-//
-//        } catch (NumberFormatException e) {
-//            System.out.println("올바른 숫자를 입력해주세요.");
-//        }
-//    }
+   // 카테고리별 재고 조회
+   private void handleCategoryInventory() throws IOException {
+       boolean loop = true;
+       while (loop) {
+           System.out.println("\n========= 카테고리별 재고 조회 =========");
+           System.out.println("1. 대분류 조회");
+           System.out.println("2. 돌아가기");
+           String input = br.readLine().trim();
+
+           switch (input) {
+               case "1":
+                   handleTopCategorySearch();
+                   break;
+               case "2":
+                   loop = false;
+                   break;
+               default:
+                   System.out.println("잘못된 번호입니다.");
+           }
+       }
+   }
+
+   private void handleTopCategorySearch() throws IOException {
+       // 1. 대분류 목록 표시
+       List<String> topCategories = inventoryController.showTopCategoryList();
+
+       if (topCategories.isEmpty()) {
+           System.out.println("조회 가능한 대분류가 없습니다.");
+           return;
+       }
+
+       System.out.println("\n========= 대분류 목록 =========");
+       for (int i = 0; i < topCategories.size(); i++) {
+           System.out.println((i + 1) + ". " + topCategories.get(i));
+       }
+
+       try {
+           int choice = Integer.parseInt(br.readLine().trim());
+           if (choice < 1 || choice > topCategories.size()) {
+               System.out.println("잘못된 번호입니다.");
+               return;
+           }
+
+           String selectedTopCategory = topCategories.get(choice - 1);
+
+           // 선택한 대분류의 재고 조회 및 출력
+           List<InventoryResponse> inventoryList = inventoryController.showTopCategoryInventory(selectedTopCategory);
+           inventoryView.displayCategoryInventory(inventoryList, selectedTopCategory, "대분류");
+
+           // 소분류 조회 옵션 제공
+           showSubCategoryOption(selectedTopCategory);
+
+       } catch (NumberFormatException e) {
+           System.out.println("올바른 숫자를 입력해주세요.");
+       }
+   }
+
+   private void showSubCategoryOption(String selectedTopCategory) throws IOException {
+       System.out.println("\n1. 소분류 조회");
+       System.out.println("2. 나가기");
+       String choice = br.readLine().trim();
+
+       if ("1".equals(choice)) {
+           handleSubCategorySearch(selectedTopCategory);
+       }
+   }
+
+   private void handleSubCategorySearch(String topCategory) throws IOException {
+       // 선택한 대분류의 소분류 목록 조회
+       List<String> subCategories = inventoryController.getSubCategoryList(topCategory);
+
+       if (subCategories.isEmpty()) {
+           System.out.println("해당 소분류가 없습니다.");
+           return;
+       }
+
+       System.out.println("\n========= 소분류 목록 =========");
+       for (int i = 0; i < subCategories.size(); i++) {
+           System.out.println((i + 1) + ". " + subCategories.get(i));
+       }
+       System.out.print("선택: ");
+
+       try {
+           int choice = Integer.parseInt(br.readLine().trim());
+           if (choice < 1 || choice > subCategories.size()) {
+               System.out.println("잘못된 번호입니다.");
+               return;
+           }
+
+           String selectedSubCategory = subCategories.get(choice - 1);
+
+           // 선택한 소분류의 재고 조회 및 출력
+           List<InventoryResponse> inventoryList = inventoryController.getSubCategoryInventory(selectedSubCategory);
+           inventoryView.displayCategoryInventory(inventoryList, selectedSubCategory, "소분류");
+
+       } catch (NumberFormatException e) {
+           System.out.println("올바른 숫자를 입력해주세요.");
+       }
+   }
 
 
     // 상품 상세 조회
