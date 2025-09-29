@@ -97,7 +97,6 @@ public class WarehouseDaoImpl implements WarehouseDao {
     @Override
     public List<WarehouseVo> findByType(String type) {
         List<WarehouseVo> warehouse = new ArrayList<WarehouseVo>();
-
         String sql = "CALL usp_warehouse_selectByType(?)";
 
         try(
@@ -202,7 +201,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
     @Override
     public List<WarehouseVo> findByLocationByUser(String location) {
         List<WarehouseVo> warehouse = new ArrayList<WarehouseVo>();
-        String sql = "CALL usp_warehouse_selectByLocation(?)";
+        String sql = "CALL usp_warehouse_selectByLocation_ByUser(?)";
 
         try(
                 Connection conn  = DBUtil.getConnection();
@@ -239,7 +238,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
     public List<WarehouseVo> findByTypeByUser(String type) {
         List<WarehouseVo> warehouse = new ArrayList<WarehouseVo>();
 
-        String sql = "CALL usp_warehouse_selectByType(?)";
+        String sql = "CALL usp_warehouse_selectByType_ByUser(?)";
 
         try(
                 Connection conn  = DBUtil.getConnection();
@@ -275,7 +274,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
     public List<WarehouseVo> findByNameByUser(String name) {
         List<WarehouseVo> warehouse = new ArrayList<WarehouseVo>();
 
-        String sql = "CALL usp_warehouse_selectByName(?)";
+        String sql = "CALL usp_warehouse_selectByName_ByUser(?)";
 
         try(
                 Connection conn  = DBUtil.getConnection();
@@ -311,7 +310,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
     public List<WarehouseVo> findAllByUser() {
         List<WarehouseVo> warehouse = new ArrayList<>();
 
-        String sql = "CALL usp_warehouse_selectAll()";
+        String sql = "CALL usp_warehouse_selectAll_ByUser()";
 
         try(
                 Connection conn  = DBUtil.getConnection();

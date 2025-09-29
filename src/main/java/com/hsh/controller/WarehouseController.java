@@ -70,19 +70,19 @@ public class WarehouseController {
 
     // 회원 메뉴
     public List<WarehouseVo> listWarehouseByUser() {
-        return warehouseService.getWarehouseList();
+        return warehouseService.getWarehouseListByUser();
     }
 
     public List<WarehouseVo> searchWarehouseByTypeByUser(String typeChoice) {
-        return warehouseService.searchByType(typeChoice);
+        return warehouseService.searchByTypeByUser(typeChoice);
     }
 
     public List<WarehouseVo> getWarehouseByNameByUser(String name) {
-        return warehouseService.searchByName(name);
+        return warehouseService.searchByNameByUser(name);
     }
 
     public List<WarehouseVo> getWarehouseByLocationByUser(String location) {
-        return warehouseService.searchByLocation(location);
+        return warehouseService.searchByLocationByUser(location);
     }
 
 

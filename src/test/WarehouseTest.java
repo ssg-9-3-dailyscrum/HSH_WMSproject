@@ -7,6 +7,7 @@ import main.java.com.hsh.view.menuView.WarehouseMenuView;
 public class WarehouseTest {
     public static void main(String[] args) {
         WarehouseController controller = WarehouseController.getInstance();
+        WarehouseMenuView warehouseMenuView = new WarehouseMenuView();
         WarehouseMenuView warehouseUserMenuView = new WarehouseMenuView();
 //        warehouseMenuView.warehouseMenu();
         warehouseUserMenuView.warehouseUserMenu();
