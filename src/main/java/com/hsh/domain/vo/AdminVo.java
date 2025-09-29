@@ -34,4 +34,5 @@ public class AdminVo {
         this.department = department;
         this.adminStatus = status;
     }
+
 }

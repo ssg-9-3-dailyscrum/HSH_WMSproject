@@ -49,7 +49,7 @@ public class AdminManageView {
     // 메뉴 출력
     private int displaySubMenu() throws IOException {
         System.out.println("\n=================================================");
-        System.out.println("               관리자 내 계정 관리 메뉴          ");
+        System.out.println("               관리자 내 계정 관리 메뉴              ");
         System.out.println("=================================================");
         System.out.println("1. 정보 조회");
         System.out.println("2. 정보 수정");
