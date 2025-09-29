@@ -6,7 +6,12 @@ import java.util.List;
 
 public interface WarehouseDao {
 
-    void save();
+    boolean save(int adminId,
+                 String warehouseName,
+                 String warehouseType,
+                 int warehouseCapacity,
+                 String warehouseStatus,
+                 String warehouseAddress);
 
     int updateStatus(int warehouseId);
 
@@ -17,5 +22,13 @@ public interface WarehouseDao {
     List<WarehouseVo> findByType(String type);
 
     List<WarehouseVo> findAll();
+
+    List<WarehouseVo> findByLocationByUser(String location);
+
+    List<WarehouseVo> findByNameByUser(String name);
+
+    List<WarehouseVo> findByTypeByUser(String type);
+
+    List<WarehouseVo> findAllByUser();
 
 }

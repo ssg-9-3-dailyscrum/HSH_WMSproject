@@ -27,16 +27,39 @@ public class WarehouseController {
         return instance; // 이미 있으면 기존 객체 반환
     }
 
+    // 창고 등록
+    public boolean addWarehouse(int adminId,
+                                String warehouseName,
+                                String warehouseType,
+                                int warehouseCapacity,
+                                String warehouseStatus,
+                                String warehouseAddress) {
+
+        return warehouseService.registerWarehouse(
+                adminId,
+                warehouseName,
+                warehouseType,
+                warehouseCapacity,
+                warehouseStatus,
+                warehouseAddress);
+    }
+
     public boolean updateWarehouseStatus(int warehouseId) {
-        return warehouseService.chageStatus(warehouseId);
+        // ID 검증 정도만 컨트롤러에서 수행
+        if (warehouseId <= 0) {
+            System.out.println(":: 잘못된 창고 ID입니다. ::");
+            return false;
+        }
+        // 서비스는 자동으로 Y ↔ N 토글
+        return warehouseService.changeWarehouseStatus(warehouseId);
     }
 
     public List<WarehouseVo> listWarehouse() {
         return warehouseService.getWarehouseList();
     }
 
-    public List<WarehouseVo> getWarehouseByType(String type) {
-        return warehouseService.searchByType(type);
+    public List<WarehouseVo> searchWarehouseByType(String typeChoice) {
+        return warehouseService.searchByType(typeChoice);
     }
 
     public List<WarehouseVo> getWarehouseByName(String name) {
@@ -47,8 +70,23 @@ public class WarehouseController {
         return warehouseService.searchByLocation(location);
     }
 
-//    public int updateWarehouseStatus() {
-//        warehouseService.searchByLocation(warehouseLocation);
-//    }
+    // 회원 메뉴
+    public List<WarehouseVo> listWarehouseByUser() {
+        return warehouseService.getWarehouseList();
+    }
+
+    public List<WarehouseVo> searchWarehouseByTypeByUser(String typeChoice) {
+        return warehouseService.searchByType(typeChoice);
+    }
+
+    public List<WarehouseVo> getWarehouseByNameByUser(String name) {
+        return warehouseService.searchByName(name);
+    }
+
+    public List<WarehouseVo> getWarehouseByLocationByUser(String location) {
+        return warehouseService.searchByLocation(location);
+    }
+
 
 }
+
