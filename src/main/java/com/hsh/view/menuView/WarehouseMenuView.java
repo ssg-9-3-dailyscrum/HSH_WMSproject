@@ -1,9 +1,9 @@
 package main.java.com.hsh.view.menuView;
 
 import main.java.com.hsh.controller.WarehouseController;
+import main.java.com.hsh.view.WarehouseUserView;
 import main.java.com.hsh.view.WarehouseView;
 
-import javax.imageio.IIOException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,10 +62,10 @@ public class WarehouseMenuView {
             userMenu();
             int choice = warehouseMenuChoice();
             switch(choice) {
-                case 1 -> warehouseView.runListWarehouse();
-                case 2 -> warehouseView.printWarehouseByName();
-                case 3 -> warehouseView.printWarehouseByType();
-                case 4 -> warehouseView.printWarehouseByLocation();
+                case 1 -> warehouseUserView.runListWarehouse();
+                case 2 -> warehouseUserView.printWarehouseByName();
+                case 3 -> warehouseUserView.printWarehouseByType();
+                case 4 -> warehouseUserView.printWarehouseByLocation();
                 case 5 -> flag = true;
                 default -> System.out.println(":: 잘못된 입력입니다. ::");
             }
