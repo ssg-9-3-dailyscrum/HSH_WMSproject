@@ -6,12 +6,12 @@ import main.java.com.hsh.domain.dto.response.OutboundResponseDto;
 import java.util.List;
 
 public interface OutboundDao {
-    boolean requestOutbound(OutboundRequestDto request);
-    boolean approveOutbound(int outboundId);
-    boolean updateOutboundRequest(OutboundRequestDto request);
+    boolean createOutboundRequest(OutboundRequestDto req);
+    boolean approveOutbound(int outboundId, int adminId);
     boolean cancelOutbound(int outboundId);
-
-    OutboundResponseDto getOutboundDetail(int outboundId);
-    List<OutboundResponseDto> getPendingOutboundRequests();
-    List<OutboundResponseDto> getAllOutbound();
+    boolean updateOutboundRequest(OutboundRequestDto req);
+    List<OutboundResponseDto> getAllOutbound(int adminId, String role);
+    OutboundResponseDto getOutboundDetail(int outboundId, int userType, int userId);
+    List<OutboundResponseDto> getPendingOutboundRequests(int userType, int userId);
+    String getUserRole(int userId);
 }

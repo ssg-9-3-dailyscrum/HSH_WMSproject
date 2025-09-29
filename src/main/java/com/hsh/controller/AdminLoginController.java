@@ -1,7 +1,7 @@
 package main.java.com.hsh.controller;
 
 import main.java.com.hsh.service.AdminLoginService;
-import main.java.com.hsh.service.seviceImpl.AdminLoginServiceImpl;
+import main.java.com.hsh.service.serviceImpl.AdminLoginServiceImpl;
 
 public class AdminLoginController {
 

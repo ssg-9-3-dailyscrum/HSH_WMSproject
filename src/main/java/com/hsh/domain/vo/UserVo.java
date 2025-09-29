@@ -21,5 +21,4 @@ public class UserVo {
     private String email;              // 이메일
     private String status;             // 가입 상태 (Y/N)
 
-
 }

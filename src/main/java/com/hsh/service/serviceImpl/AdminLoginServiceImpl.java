@@ -1,8 +1,7 @@
-package main.java.com.hsh.service.seviceImpl;
+package main.java.com.hsh.service.serviceImpl;
 
 import main.java.com.hsh.Dao.AdminLoginDao;
 import main.java.com.hsh.Dao.daoImpl.AdminLoginDaoImpl;
-import main.java.com.hsh.controller.AdminLoginController;
 import main.java.com.hsh.service.AdminLoginService;
 
 public class AdminLoginServiceImpl implements AdminLoginService {

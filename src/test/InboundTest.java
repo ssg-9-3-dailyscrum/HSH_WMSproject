@@ -11,7 +11,7 @@ import java.util.List;
 
 public class InboundTest {
 
-    private final InboundController controller = new InboundController();
+    InboundController controller = InboundController.getInstance();
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
     public void start() throws IOException {
