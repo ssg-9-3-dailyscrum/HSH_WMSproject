@@ -47,9 +47,9 @@ public class UsermembershipView {
         boolean success = controller.registerUser(user);
 
         if(success) {
-            System.out.println("회원가입 성공! 로그인 후 서비스를 이용하세요.");
+            System.out.println("회원가입 성공 -> 로그인 후 서비스를 이용하세요.");
         } else {
-            System.out.println("회원가입 실패!");
+            System.out.println("회원가입 실패");
         }
     }
 }

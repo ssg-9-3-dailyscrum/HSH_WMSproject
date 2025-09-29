@@ -49,4 +49,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     public List<AdminVo> selectAllExceptSuperAdmin() {
         return ((AdminLoginDaoImpl) adminLoginDao).selectAllExceptSuperAdmin();
     }
+
+
+    @Override
+    public AdminVo getAdminById(Integer adminId) {
+        return adminLoginDao.getAdminById(adminId);
+    }
 }

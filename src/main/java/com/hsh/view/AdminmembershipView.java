@@ -21,24 +21,28 @@ public class AdminmembershipView {
         System.out.print("비밀번호: ");
         String password = input.readLine().trim();
 
-        System.out.print("부서(department) 입력 (예: 총관리부, 창고부): ");
+        System.out.print("부서 입력 (예: 총관리부, 창고부): ");
         String department = input.readLine().trim();
 
         System.out.print("이름: ");
         String adminName = input.readLine().trim();
 
-        System.out.print("역할(role) 입력 (예: 총관리자, 창고관리자): ");
+        System.out.print("권한 입력 (예: 총관리자, 창고관리자): ");
         String role = input.readLine().trim();
 
+        System.out.print("계정상태 (Y/N)입력 : ");
+
         /// AdminVo 객체 생성 시 department 포함
-        AdminVo newAdmin = new AdminVo(adminLoginId, password, adminName, role, department);
+
+        String status = "Y";
+        AdminVo newAdmin = new AdminVo(adminLoginId, password, adminName, role, department, status);
 
         /// Controller를 통해 DB에 저장
         boolean success = AdminLoginController.getInstance().registerAdmin(newAdmin);
 
 
         if (!success) {
-            System.out.println("관리자 계정 생성 실패!");
+            System.out.println("관리자 계정 생성에 실패");
         }
     }
 }

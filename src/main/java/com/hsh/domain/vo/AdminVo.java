@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class AdminVo {
+
     private int adminId;
     private String adminLoginId;
     private String password;
@@ -25,11 +26,12 @@ public class AdminVo {
     private String salt;
 
     // 생성자 추가
-    public AdminVo(String adminLoginId, String password, String adminName, String role, String department) {
+    public AdminVo(String adminLoginId, String password, String adminName, String role, String department, String status) {
         this.adminLoginId = adminLoginId;
         this.password = password;
         this.adminName = adminName;
         this.role = role;
         this.department = department;
+        this.adminStatus = status;
     }
 }

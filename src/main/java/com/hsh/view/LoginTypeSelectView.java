@@ -5,17 +5,19 @@ import main.java.com.hsh.controller.UserLoginController;
 import main.java.com.hsh.domain.vo.AdminVo;
 import main.java.com.hsh.domain.vo.UserVo;
 import main.java.com.hsh.session.AdminSession; ///관리자 세션
-import main.java.com.hsh.session.UserSession; /// 사용자 세션
+import main.java.com.hsh.session.UserSession;
+import main.java.com.hsh.view.menuView.AdminMenuView;
+import main.java.com.hsh.view.menuView.UserMenuView; /// 사용자 세션
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class LoginTypeSelect {
+public class LoginTypeSelectView {
 
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-    // --- 메인 메뉴 출력 ---
+    /// 메인 메뉴 출력
     public int inputMainMenu() throws IOException {
         System.out.println("=================================================");
         System.out.println("          보람삼조 창고관리시스템 메인 메뉴        ");
@@ -28,7 +30,7 @@ public class LoginTypeSelect {
         return Integer.parseInt(input.readLine().trim());
     }
 
-    // --- 서브 메뉴 출력 (로그인/회원가입/뒤로가기) ---
+    ///서브 메뉴 출력
     public int inputSubMenu(String userType) throws IOException {
         System.out.println("=================================================");
         System.out.println("          [" + userType + " 메뉴]                 ");
@@ -41,7 +43,7 @@ public class LoginTypeSelect {
         return Integer.parseInt(input.readLine().trim());
     }
 
-    public LoginTypeSelect() throws IOException {
+    public LoginTypeSelectView() throws IOException {
         AdminLoginController adminLoginController = AdminLoginController.getInstance();
         UserLoginController userLoginController = UserLoginController.getInstance();
 
@@ -84,12 +86,12 @@ public class LoginTypeSelect {
                     }
                 }
 
-                case 2 -> { // 회원
+                case 2 -> { /// 회원
                     boolean userMenu = true;
                     while (userMenu) {
                         int userChoice = inputSubMenu("보람삼조 회원");
                         switch (userChoice) {
-                            case 1 -> { // 로그인
+                            case 1 -> { /// 로그인
                                 System.out.println("==================== 회원 로그인 ====================");
                                 System.out.print("아이디: ");
                                 String id = input.readLine();
@@ -130,7 +132,7 @@ public class LoginTypeSelect {
 
     public static void main(String[] args) {
         try {
-            new LoginTypeSelect();
+            new LoginTypeSelectView();
         } catch (IOException e) {
             e.printStackTrace();
         }
