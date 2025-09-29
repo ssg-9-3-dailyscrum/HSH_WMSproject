@@ -1,30 +1,99 @@
 package main.java.com.hsh.controller;
 
+import main.java.com.hsh.domain.vo.AdminVo;
 import main.java.com.hsh.service.AdminLoginService;
 import main.java.com.hsh.service.serviceImpl.AdminLoginServiceImpl;
+import main.java.com.hsh.session.AdminSession;
+import main.java.com.hsh.view.AdminManageView; // AdminManageView import
+
+import java.util.List;
 
 public class AdminLoginController {
 
-    // 싱글톤 인스턴스를 담을 static 변수
-    // (클래스 내부에 자기 자신을 담을 정적 변수 선언)
-    // Eager Singleton 방식
-    private static AdminLoginController instance = new AdminLoginController();
-    private AdminLoginService adminloginService;
-
+    private static final AdminLoginController instance = new AdminLoginController();
+    private final AdminLoginService adminLoginService;
 
     private AdminLoginController() {
-        // 싱글톤 서비스 구현체 가져오기
-        this.adminloginService = AdminLoginServiceImpl.getInstance();
+        this.adminLoginService = AdminLoginServiceImpl.getInstance();
     }
 
-    // 전역 접근 지점 (항상 같은 인스턴스 반환 가능하도록)
     public static AdminLoginController getInstance() {
         return instance;
     }
 
-    //
-    public boolean adminLogin(String id, String pw) {
-        return adminloginService.adminLogin(id, pw);
+    /// 관리자 로그인
+    public boolean login(String id, String pw) {
+        AdminVo admin = adminLoginService.adminLogin(id, pw);
+        if (admin != null) {
+            System.out.println(admin.getAdminName() + "님, 로그인 성공!");
+            return true;
+        }
+        System.out.println("로그인 실패! 아이디 또는 비밀번호를 확인하세요.");
+        return false;
     }
 
+    /// 관리자 로그인 (AdminVo 반환)
+    public AdminVo adminLogin(String id, String pw) {
+        return adminLoginService.adminLogin(id, pw);
+    }
+
+    /// 로그아웃
+    public void logout() {
+        AdminSession.getInstance().logout();
+        System.out.println("관리자 로그아웃 완료");
+    }
+
+    /// 관리자 회원가입
+    public boolean registerAdmin(AdminVo newAdmin) {
+        int result = adminLoginService.createAdmin(newAdmin);
+        if (result > 0) {
+            System.out.println(newAdmin.getAdminName() + "님 관리자 계정 생성 성공!");
+            return true;
+        }
+        System.out.println("관리자 계정 생성 실패!");
+        return false;
+    }
+
+    /// 관리자 정보 수정
+    public boolean updateAdmin(AdminVo updatedAdmin) {
+        int result = adminLoginService.updateAdmin(updatedAdmin);
+        if (result > 0) {
+            System.out.println(updatedAdmin.getAdminName() + "님의 정보가 수정되었습니다.");
+            return true;
+        }
+        System.out.println("관리자 정보 수정 실패!");
+        return false;
+    }
+
+    /// 관리자 비활성화
+    public boolean deactivateAdmin(String adminLoginId) {
+        int result = adminLoginService.deactivateAdmin(adminLoginId);
+        if (result > 0) {
+            System.out.println(adminLoginId + " 관리자 계정 비활성화 완료!");
+            return true;
+        }
+        System.out.println("관리자 계정 비활성화 실패");
+        return false;
+    }
+
+
+    /// 특정 관리자 조회 (관리자 ID 기준)
+    public AdminVo getAdminById(Integer adminId) {
+        return adminLoginService.getAdminById(adminId);
+    }
+
+    /// 로그인 성공 후 관리자 정보 관리 메뉴 호출
+    public void enterAdminManage(String id, String pw) {
+        AdminVo admin = adminLogin(id, pw); // 로그인 시 AdminVo 반환
+        if (admin != null) {
+            // 세션 저장 후 관리자 정보 호출
+            AdminSession.getInstance().login(admin.getAdminId(), admin.getRole(), admin.getAdminName());
+            new AdminManageView(admin); // AdminManageView 실행
+        }
+    }
+
+    /// 총관리자 제외 모든 관리자 조회
+    public List<AdminVo> selectAllExceptSuperAdmin() {
+        return adminLoginService.selectAllExceptSuperAdmin();
+    }
 }

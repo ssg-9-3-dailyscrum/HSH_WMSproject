@@ -11,19 +11,27 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class AdminVo {
-    private Long adminId;           // 관리자 번호 ( PK)
-    private String adminLoginId;    // 로그인 아이디
-    private String password;        // 비밀번호
-    private String adminName;       // 관리자 이름
-    private String department;      // 부서
-    private String role;            // 권한 (예: SUPER_ADMIN, ADMIN)
-    private String email;           //  이메일
-    private String phone;           // 연락처 (Admin DTO에서 사용됨)
-    private String address;         // 주소 (Admin DTO에서 사용됨)
-    private String adminStatus;     // 활성화 상태 (Y, N)
-    private LocalDateTime joinDate; // 가입일 (DB에 따라 DATETIME 또는 TIMESTAMP)
-    private String salt;            // 비밀번호 암호화용 Salt  (DB에 저장한다면 필요함)
 
+    private int adminId;
+    private String adminLoginId;
+    private String password;
+    private String adminName;
+    private String department; // 부서
+    private String role;       // 권한
+    private String email;
+    private String phone;
+    private String address;
+    private String adminStatus;
+    private LocalDateTime joinDate;
+    private String salt;
 
-
+    // 생성자 추가
+    public AdminVo(String adminLoginId, String password, String adminName, String role, String department, String status) {
+        this.adminLoginId = adminLoginId;
+        this.password = password;
+        this.adminName = adminName;
+        this.role = role;
+        this.department = department;
+        this.adminStatus = status;
+    }
 }

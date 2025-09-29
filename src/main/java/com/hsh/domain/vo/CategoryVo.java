@@ -1,6 +1,9 @@
 package main.java.com.hsh.domain.vo;
 
-public class Category {
+import lombok.Data;
+
+@Data
+public class CategoryVo {
     private int categoryId;
     private int topCategoryId;
     private int categoryDepth;
