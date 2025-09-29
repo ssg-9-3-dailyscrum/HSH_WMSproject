@@ -31,5 +31,3 @@ bin/
 .DS_Store
 
 .idea/dataSoureces.xml
-# UserSession.java 파일 무시
-src/main/java/com/hsh/util/UserSession.java
