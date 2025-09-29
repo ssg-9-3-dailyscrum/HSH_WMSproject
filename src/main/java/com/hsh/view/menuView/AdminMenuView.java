@@ -66,10 +66,24 @@ public class AdminMenuView {
                     }
                     new AdminManageView(admin);
                 }
-                case 2 -> System.out.println("재고관리 메뉴 호출");
-                case 3 -> System.out.println("창고관리 메뉴 호출");
-                case 4 -> System.out.println("입고관리 메뉴 호출");
-                case 5 -> System.out.println("출고관리 메뉴 호출");
+                case 2 -> {
+                    System.out.println("재고관리 메뉴 호출");
+                    InventoryMenuView inventoryMenuView = new InventoryMenuView();
+                    inventoryMenuView.showInventoryMenu();
+                }
+                case 3 -> {
+                    System.out.println("창고관리 메뉴 호출");
+                    WarehouseMenuView warehouseMenuView = new WarehouseMenuView();
+                    warehouseMenuView.warehouseMenu();
+                }
+                case 4 -> {
+                    System.out.println("입고관리 메뉴 호출");
+                    InboundMenuView inboundMenuView = new InboundMenuView();
+                    inboundMenuView.inboundMenu();
+                }
+                case 5 -> {
+                    System.out.println("출고관리 메뉴 호출");
+                }
                 case 6 -> {
                     AdminLoginController.getInstance().logout();
                     running = false;

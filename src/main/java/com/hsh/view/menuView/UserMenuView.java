@@ -40,10 +40,24 @@ public class UserMenuView {
 
                         new UserManageView();
                     }
-                    case 2 -> System.out.println("2. 창고 관리 메뉴 ");
-                    case 3 -> System.out.println("3. 재고 관리 메뉴 ");
-                    case 4 -> System.out.println("4. 입고 관리 메뉴 ");
-                    case 5 -> System.out.println("5. 출고 관리 메뉴 ");
+                    case 2 -> {
+                        System.out.println("2. 창고 관리 메뉴 ");
+                        WarehouseMenuView warehouseMenuView = new WarehouseMenuView();
+                        warehouseMenuView.warehouseUserMenu();
+                    }
+                    case 3 -> {
+                        System.out.println("3. 재고 관리 메뉴 ");
+                        InventoryMenuView inventoryMenuView = new InventoryMenuView();
+                        inventoryMenuView.showInventoryMenu();
+                    }
+                    case 4 -> {
+                        System.out.println("4. 입고 관리 메뉴 ");
+                        InboundMenuView inboundMenuView = new InboundMenuView();
+                        inboundMenuView.inboundMenu();
+                    }
+                    case 5 -> {
+                        System.out.println("5. 출고 관리 메뉴 ");
+                    }
                     case 6 -> {
                         userLoginController.logout(); // 컨트롤러에 로그아웃 요청
                         running = false; // UserMenuView 종료 -> LoginTypeSelect로 돌아감
