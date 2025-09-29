@@ -9,7 +9,7 @@ public class AdminSession {
 
     private static final AdminSession instance = new AdminSession();
 
-    private Long adminId;
+    private Integer adminId;
     private String role;
     private String adminName;
 
@@ -19,19 +19,17 @@ public class AdminSession {
         return instance;
     }
 
-
-    public void login(Long adminId, String role, String adminName) {
+    // 로그인 시 세션에 값 저장
+    public void login(Integer adminId, String role, String adminName) {
         this.adminId = adminId;
         this.role = role;
         this.adminName = adminName;
     }
 
+    // 로그아웃 시 초기화
     public void logout() {
         this.adminId = null;
         this.role = null;
         this.adminName = null;
-
-
-
     }
 }

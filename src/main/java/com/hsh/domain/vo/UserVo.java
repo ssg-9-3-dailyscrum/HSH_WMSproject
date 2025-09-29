@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class UserVo {
 
     // DB 컬럼과 일치하는 속성
-    private Long memberId;             // 회원번호 (PK)
+    private int memberId;             // 회원번호 (PK)
     private String userLoginId;        // 로그인 아이디
     private String password;           // 비밀번호
     private String name;               // 이름
