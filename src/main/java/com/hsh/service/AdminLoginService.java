@@ -15,4 +15,7 @@ public interface AdminLoginService {
 
     /// 총관리자를 제외한 모든 회원과 관리자들 조회
     List<AdminVo> selectAllExceptSuperAdmin();
+
+    /// ID로 관리자 조회
+    AdminVo getAdminById(Integer adminId);
 }

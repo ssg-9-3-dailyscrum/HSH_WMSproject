@@ -1,7 +1,8 @@
-package main.java.com.hsh.view;
+package main.java.com.hsh.view.menuView;
 
 import main.java.com.hsh.controller.UserLoginController;
-import main.java.com.hsh.domain.vo.UserVo; /// UserVo -> import ->  현재 사용자 정보를 담는 객체
+import main.java.com.hsh.domain.vo.UserVo;
+import main.java.com.hsh.view.UserManageView; /// UserVo -> import ->  현재 사용자 정보를 담는 객체
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,9 +22,7 @@ public class UserMenuView {
         boolean running = true;
         while (running) {
 
-            // 💡 수정: userLoginController.getCurrentLoggedInUser() 대신,
-            //    세션에서 UserVo 객체를 가져오는 **userLoginController.getUserInfo()**를 사용합니다.
-            //    (getUserInfo()는 세션의 UserLoginId를 사용해 DB에서 최신 UserVo를 가져옵니다.)
+
             UserVo currentUser = userLoginController.getUserInfo();
 
             // 현재 로그인된 사용자 정보 확인 (로그아웃되었거나 세션이 만료된 경우)
@@ -36,17 +35,17 @@ public class UserMenuView {
                 int choice = displayMainMenu(currentUser.getName()); // 사용자 이름을 전달
 
                 switch (choice) {
-                    case 1 -> { // 1. 회원 관리 (마이페이지 기능 등)
+                    case 1 -> {
                         System.out.println(" 회원 관리 메뉴로 이동합니다.");
-                        // 회원 관리 서브 메뉴 호출 (UserManageView는 회원 정보 수정/탈퇴 등의 로직을 담을 것입니다.)
+
                         new UserManageView();
                     }
-                    case 2 -> System.out.println("2. 창고 관리 메뉴 (미구현)");
-                    case 3 -> System.out.println("3. 재고 관리 메뉴 (미구현)");
-                    case 4 -> System.out.println("4. 입고 관리 메뉴 (미구현)");
-                    case 5 -> System.out.println("5. 출고 관리 메뉴 (미구현)");
-                    case 6 -> { // 6. 로그아웃
-                        userLoginController.logout(); // 컨트롤러에 로그아웃 요청 (세션 해제)
+                    case 2 -> System.out.println("2. 창고 관리 메뉴 ");
+                    case 3 -> System.out.println("3. 재고 관리 메뉴 ");
+                    case 4 -> System.out.println("4. 입고 관리 메뉴 ");
+                    case 5 -> System.out.println("5. 출고 관리 메뉴 ");
+                    case 6 -> {
+                        userLoginController.logout(); // 컨트롤러에 로그아웃 요청
                         running = false; // UserMenuView 종료 -> LoginTypeSelect로 돌아감
                     }
                     default -> System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
@@ -57,10 +56,10 @@ public class UserMenuView {
         }
     }
 
-    // 회원 메인 메뉴 출력 (userName을 인수로 받도록 수정)
+    // 회원 메인 메뉴 출력
     private int displayMainMenu(String userName) throws IOException {
         System.out.println("\n=================================================");
-        System.out.println("            **" + userName + "님, 메인 메뉴** ");
+        System.out.println("|           " + userName + ", 메인 메뉴                       |");
         System.out.println("=================================================");
         System.out.println("   1. 회원 관리");
         System.out.println("   2. 창고 관리");

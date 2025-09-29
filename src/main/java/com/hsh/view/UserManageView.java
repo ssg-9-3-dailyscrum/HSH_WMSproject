@@ -54,13 +54,13 @@ public class UserManageView {
         System.out.println("==================== 정보 조회 ====================");
         UserVo info = userLoginController.getUserInfo();
         if (info != null) {
-            System.out.println("▶ 아이디: " + info.getUserLoginId());
-            System.out.println("▶ 이름: " + info.getName());
-            System.out.println("▶ 전화번호: " + info.getPhone());
-            System.out.println("▶ 주소: " + info.getAddress());
-            System.out.println("▶ 이메일: " + info.getEmail());
-            System.out.println("▶ 가입일: " + info.getJoinDate());
-            System.out.println("▶ 상태: " + (info.getStatus().equals("Y") ? "활성" : "비활성"));
+            System.out.println("아이디: " + info.getUserLoginId());
+            System.out.println("이름: " + info.getName());
+            System.out.println("전화번호: " + info.getPhone());
+            System.out.println("주소: " + info.getAddress());
+            System.out.println("이메일: " + info.getEmail());
+            System.out.println("가입일: " + info.getJoinDate());
+            System.out.println("상태: " + (info.getStatus().equals("Y") ? "활성" : "비활성"));
         } else {
             System.out.println("정보를 불러오는 데 실패했습니다.");
         }
@@ -78,43 +78,43 @@ public class UserManageView {
             return;
         }
 
-        // 1) 비밀번호 수정
+        // 비밀번호 수정
         System.out.print("새 비밀번호를 입력해주세요 : ");
         String newPw = input.readLine().trim();
         if (!newPw.isEmpty()) {
             updatedVo.setPassword(newPw);
         }
 
-        // 2) 전화번호 수정
+        // 전화번호 수정
         System.out.print("새 전화번호를 입력해주세요 (현재: " + updatedVo.getPhone() + "): ");
         String newPhone = input.readLine().trim();
         if (!newPhone.isEmpty()) {
             updatedVo.setPhone(newPhone);
         }
 
-        // 3) 주소 수정
+        // 주소 수정
         System.out.print("새 주소를 입력해주세요 (현재: " + updatedVo.getAddress() + "): ");
         String newAddr = input.readLine().trim();
         if (!newAddr.isEmpty()) {
             updatedVo.setAddress(newAddr);
         }
 
-        // 4) 이메일 수정
+        //이메일 수정
         System.out.print("새 이메일 (현재: " + updatedVo.getEmail() + "): ");
         String newEmail = input.readLine().trim();
         if (!newEmail.isEmpty()) {
             updatedVo.setEmail(newEmail);
         }
 
-        // 컨트롤러를 통해 수정 요청
+        //컨트롤러를 통해 수정 요청
         if (userLoginController.updateUserInfo(updatedVo)) {
-            System.out.println(" 회원 정보가 성공적으로 수정되었습니다!");
+            System.out.println(" 회원 정보가 성공적으로 수정되었습니다");
         } else {
             System.out.println(" 회원 정보 수정에 실패했습니다. 다시 시도해주세요.");
         }
     }
 
-    // 3. 탈퇴 로직 (비활성화)
+    // 탈퇴
     private boolean deactivateUser() throws IOException {
         System.out.println("==================== 회원 탈퇴/비활성화 ====================");
         System.out.print("정말로 계정을 비활성화(탈퇴) 하시겠습니까? (Y/N): ");
@@ -128,7 +128,7 @@ public class UserManageView {
         }
     }
 
-    // 회원 관리 서브 메뉴 출력
+    // 회원 관리 서브 메뉴
     private int displaySubMenu() throws IOException {
         System.out.println("\n=================================================");
         System.out.println("                   보람삼조회원 관리 메뉴             ");
