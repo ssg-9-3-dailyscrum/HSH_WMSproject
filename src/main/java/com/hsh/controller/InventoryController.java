@@ -38,7 +38,7 @@ public class InventoryController {
     }
 
     // 대분류 조회
-        public List<InventoryResponse> showTopCategoryInventory(String categoryName) {
+    public List<InventoryResponse> showTopCategoryInventory(String categoryName) {
         return inventoryService.getTopCategoryInventory(categoryName);
     }
 
@@ -57,16 +57,6 @@ public class InventoryController {
         String userRole = UserSession.getCurrentUserRole();
         Integer userId = UserSession.getCurrentUserId();
         return inventoryService.getProductDetail(userRole, userId, productName);
-    }
-
-    // 창고 현황 조회
-    public List<WarehouseStatusResponse> showWarehouse() {
-        return inventoryService.getWarehouse();
-    }
-
-    public List<InventoryResponse> showInventoryAuditLog() {
-        System.out.println("재고 실사 조회 기능 준비 중입니다.");
-
     }
 
     // 창고 현황 조회
