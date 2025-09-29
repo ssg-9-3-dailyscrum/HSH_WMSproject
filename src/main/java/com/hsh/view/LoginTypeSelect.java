@@ -3,6 +3,9 @@ package main.java.com.hsh.view;
 import main.java.com.hsh.controller.AdminLoginController;
 import main.java.com.hsh.controller.UserLoginController;
 import main.java.com.hsh.domain.vo.AdminVo;
+import main.java.com.hsh.domain.vo.UserVo;
+import main.java.com.hsh.session.AdminSession; ///관리자 세션
+import main.java.com.hsh.session.UserSession; /// 사용자 세션
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,9 +15,10 @@ public class LoginTypeSelect {
 
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
+    // --- 메인 메뉴 출력 ---
     public int inputMainMenu() throws IOException {
         System.out.println("=================================================");
-        System.out.println("          보람삼조 창고관리시스템 메인 메뉴            ");
+        System.out.println("          보람삼조 창고관리시스템 메인 메뉴        ");
         System.out.println("=================================================");
         System.out.println("   1. 관리자");
         System.out.println("   2. 회원");
@@ -24,6 +28,7 @@ public class LoginTypeSelect {
         return Integer.parseInt(input.readLine().trim());
     }
 
+    // --- 서브 메뉴 출력 (로그인/회원가입/뒤로가기) ---
     public int inputSubMenu(String userType) throws IOException {
         System.out.println("=================================================");
         System.out.println("          [" + userType + " 메뉴]                 ");
@@ -59,7 +64,11 @@ public class LoginTypeSelect {
 
                                 AdminVo admin = adminLoginController.adminLogin(id, pw);
                                 if (admin != null) {
-                                    System.out.println(admin.getAdminName() + "님 로그인 성공!");
+                                    /// 관리자 세션에 로그인 정보 저장
+                                    AdminSession.getInstance().login(admin.getAdminId(), admin.getRole(), admin.getAdminName());
+                                    System.out.println(admin.getAdminName() + "님 로그인 성공! (ID: " + admin.getAdminId() + ")");
+
+
                                     new AdminMenuView(admin);
                                     adminMenu = false;
                                 } else {
@@ -67,7 +76,7 @@ public class LoginTypeSelect {
                                 }
                             }
                             case 2 -> { // 관리자 회원가입
-                                new AdminmembershipView().join(); // AdminmembershipView 호출
+                                new AdminmembershipView().join();
                             }
                             case 3 -> adminMenu = false; // 뒤로가기
                             default -> System.out.println("잘못된 입력입니다.");
@@ -89,11 +98,18 @@ public class LoginTypeSelect {
 
                                 boolean success = userLoginController.login(id, pw);
                                 if (success) {
-                                    new UserMenuView(); // UserMenuView 호출
+                                    /// 로그인 성공 후  UserSession에서 가져오기
+                                    UserVo user = UserSession.getInstance().getCurrentLoggedInUser();
+                                    System.out.println(user.getName() + "님 로그인 성공! (ID: " + user.getMemberId() + ")");
+
+                                    // 로그인 성공 후 회원 메뉴 이동
+                                    new UserMenuView();
+                                    userMenu = false;
+                                } else {
+                                    System.out.println("회원 로그인 실패! 아이디와 비밀번호를 확인해주세요.");
                                 }
                             }
-                            case 2 -> {
-
+                            case 2 -> { // 회원가입
                                 new UsermembershipView().join();
                             }
                             case 3 -> userMenu = false; // 뒤로가기
