@@ -1,10 +1,15 @@
-package main.java.com.hsh.view;
+package main.java.com.hsh.view.menuView;
 
 import main.java.com.hsh.controller.InventoryController;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
 import main.java.com.hsh.domain.dto.response.InventoryResponse;
 import main.java.com.hsh.domain.dto.response.ProductResponse;
 import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
-import main.java.com.hsh.util.UserSession;
+import main.java.com.hsh.domain.vo.UserVo;
+import main.java.com.hsh.session.UserSession;
+import main.java.com.hsh.session.AdminSession;
+import main.java.com.hsh.view.InventoryView;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,12 +22,25 @@ public class InventoryMenuView {
     private InventoryView inventoryView = new InventoryView();
 
     public void showInventoryMenu() throws IOException {
-        String userRole = UserSession.getCurrentUserRole();
+        AdminSession adminSession = AdminSession.getInstance();
+        UserVo currentUser = UserSession.getInstance().getCurrentLoggedInUser();
+
+        String userRole = null;
+        Integer userId = null;
+
+        if (adminSession.getAdminId() != null) {
+            userRole = adminSession.getRole();
+            userId = adminSession.getAdminId().intValue();
+        } else if (currentUser != null) {
+            userRole = "회원";
+            userId = currentUser.getMemberId();
+        }
+
         boolean loop = true;
         while (loop) {
             System.out.println("\n========= 재고 관리 =========");
             // 관리자인지 회원인지 체크
-            if ("SUPER_ADMIN".equals(userRole) || "WH_ADMIN".equals(userRole)) {
+            if ("총관리자".equals(userRole) || "창고관리자".equals(userRole)) {
                 showAdminMenu();
             } else {
                 showMemberMenu();
@@ -37,7 +55,7 @@ public class InventoryMenuView {
 //                    waitForUser();
                     break;
                 case "2":
-                    if ("SUPER_ADMIN".equals(userRole) || "WH_ADMIN".equals(userRole)) {
+                    if ("총관리자".equals(userRole) || "창고관리자".equals(userRole)) {
                         handleCategoryInventory();
 //                        waitForUser();
                     } else {
@@ -46,7 +64,7 @@ public class InventoryMenuView {
 //                    waitForUser();
                     break;
                 case "3":
-                    if ("SUPER_ADMIN".equals(userRole) || "WH_ADMIN".equals(userRole)) {
+                    if ("총관리자".equals(userRole) || "창고관리자".equals(userRole)) {
                         handleProductDetail();
 //                        waitForUser();
                     } else {
@@ -54,7 +72,7 @@ public class InventoryMenuView {
                     }
                     break;
                 case "4":
-                    if ("SUPER_ADMIN".equals(userRole) || "WH_ADMIN".equals(userRole)) {
+                    if ("총관리자".equals(userRole) || "창고관리자".equals(userRole)) {
                         handleWareHouse();
 //                        waitForUser();
                     } else {
@@ -62,8 +80,8 @@ public class InventoryMenuView {
                     }
                     break;
                 case "5":
-                    if ("SUPER_ADMIN".equals(userRole) || "WH_ADMIN".equals(userRole)) {
-//                        handleInventoryAuditLog();
+                    if ("총관리자".equals(userRole) || "창고관리자".equals(userRole)) {
+                        handleInventoryAuditLog();
 //                        waitForUser();
                     } else {
                         System.out.println("잘못된 번호입니다.");
@@ -227,11 +245,11 @@ public class InventoryMenuView {
         inventoryView.displayWarehouseInventory(warehouseList);
     }
 
-//    // 재고 실사 조회
-//    private void handleInventoryAuditLog() {
-//        List<InventoryResponse> inventoryList = inventoryController.showInventoryAuditLog();
-//        inventoryView.displayInventoryAuditLog(inventoryList);
-//    }
+    // 재고 실사 조회
+    private void handleInventoryAuditLog() {
+        List<InventoryAuditResponse> inventoryAuditList = inventoryController.showInventoryAuditLog();
+        inventoryView.displayInventoryAuditLog(inventoryAuditList);
+    }
 
 //    // 결과 출력 후 사용자가 엔터를 눌러야 넘어감
 //    private void waitForUser() throws IOException {

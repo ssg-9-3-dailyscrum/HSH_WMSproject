@@ -3,6 +3,7 @@ package main.java.com.hsh.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
 import main.java.com.hsh.domain.dto.response.InventoryResponse;
 import main.java.com.hsh.domain.dto.response.ProductResponse;
 import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
@@ -10,8 +11,8 @@ import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
 public interface InventoryDao {
     // 전체 재고 조회
     List<InventoryResponse> selectAllInventorySuperAdmin();
-    List<InventoryResponse> selectAllInventoryWhAdmin(int adminId);
-    List<InventoryResponse> selectAllInventoryMember(int memberId);
+    List<InventoryResponse> selectAllInventoryWhAdmin(Integer adminId);
+    List<InventoryResponse> selectAllInventoryMember(Integer memberId);
 
     // 대분류 카테고리 리스트
     List<String> selectTopCategoryList() ;
@@ -25,13 +26,14 @@ public interface InventoryDao {
 
     // 상품 상세 조회
     List<ProductResponse> selectProductDetailSuperAdmin(String productName);
-    List<ProductResponse> selectProductDetailWhAdmin(int adminId, String productName);
-    List<ProductResponse> selectProductDetailMember(int userId, String productName);
+    List<ProductResponse> selectProductDetailWhAdmin(Integer adminId, String productName);
+    List<ProductResponse> selectProductDetailMember(Integer userId, String productName);
 
     // 창고 현황 조회
     List<WarehouseStatusResponse> selectWarehouse();
 
-//
-//    // 재고실사 조회
-//    List<InventoryAuditLogVo> selectInventoryAudit();
+
+    // 재고실사 조회
+    List<InventoryAuditResponse> selectInventoryAuditLogSuperAdmin();
+    List<InventoryAuditResponse> selectInventoryAuditLogWhAdmin(Integer userId);
 }

@@ -1,11 +1,14 @@
 package main.java.com.hsh.view;
 
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
 import main.java.com.hsh.domain.dto.response.InventoryResponse;
 import main.java.com.hsh.domain.dto.response.ProductResponse;
 import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
-import main.java.com.hsh.util.UserSession;
-
+import main.java.com.hsh.domain.vo.UserVo;
+import main.java.com.hsh.session.UserSession;
+import main.java.com.hsh.session.AdminSession;
 import java.util.List;
+
 
 public class InventoryView {
 
@@ -22,7 +25,20 @@ public class InventoryView {
         System.out.println("총 " + list.size() + "개의 상품이 검색되었습니다.");
         System.out.println();
 
-        String userRole = UserSession.getCurrentUserRole();
+        AdminSession adminSession = AdminSession.getInstance();
+        UserVo currentUser = UserSession.getInstance().getCurrentLoggedInUser();
+
+        String userRole = null;
+        Integer userId = null;
+
+        if (adminSession.getAdminId() != null) {
+            userRole = adminSession.getRole();
+            userId = adminSession.getAdminId().intValue();
+        } else if (currentUser != null) {
+            userRole = "회원";
+            userId = currentUser.getMemberId();
+        }
+
         printHeader(userRole);
         printSeparator(userRole);
 
@@ -33,47 +49,47 @@ public class InventoryView {
     }
 
     private void printHeader(String userRole) {
-        switch(userRole.toUpperCase()) {
-            case "SUPER_ADMIN" ->
+        switch(userRole) {
+            case "총관리자" ->
                     System.out.printf("%-15s | %-15s | %-10s | %-20s | %10s\n",
                             "창고명", "섹션명", "상품ID", "상품명", "수량");
-            case "WH_ADMIN" ->
+            case "창고관리자" ->
                     System.out.printf("%-15s | %-10s | %-20s | %10s\n",
                             "섹션명", "상품ID", "상품명", "수량");
-            case "MEMBER" ->
+            case "회원" ->
                     System.out.printf("%-15s | %-10s | %-20s | %10s\n",
                             "창고명", "상품ID", "상품명", "수량");
         }
     }
 
     private void printSeparator(String userRole) {
-        switch(userRole.toUpperCase()) {
-            case "SUPER_ADMIN":
+        switch(userRole) {
+            case "총관리자":
                 System.out.println("-".repeat(75));
                 break;
-            case "WH_ADMIN":
-            case "MEMBER":
+            case "창고관리자":
+            case "회원":
                 System.out.println("-".repeat(60));
                 break;
         }
     }
 
     private void printRow(InventoryResponse dto, String userRole) {
-        switch(userRole.toUpperCase()) {
-            case "SUPER_ADMIN" ->
+        switch(userRole) {
+            case "총관리자" ->
                     System.out.printf("%-15s | %-15s | %-10d | %-20s | %,10d\n",
                             dto.getWarehouseName() != null ? dto.getWarehouseName() : "-",
                             dto.getSectionText() != null ? dto.getSectionText() : "-",
                             dto.getProductId(),
                             dto.getProductName(),
                             dto.getQuantity());
-            case "WH_ADMIN" ->
+            case "창고관리자" ->
                     System.out.printf("%-15s | %-10d | %-20s | %,10d\n",
                             dto.getSectionText() != null ? dto.getSectionText() : "-",
                             dto.getProductId(),
                             dto.getProductName(),
                             dto.getQuantity());
-            case "MEMBER" ->
+            case "회원" ->
                     System.out.printf("%-15s | %-10d | %-20s | %,10d\n",
                             dto.getWarehouseName() != null ? dto.getWarehouseName() : "-",
                             dto.getProductId(),
@@ -251,7 +267,38 @@ public class InventoryView {
                 warehouse.getTotalCount());
     }
 
-//    public void displayInventoryAuditLog(List<InventoryResponse> list) {
-//
-//    }
+    public void displayInventoryAuditLog(List<InventoryAuditResponse> list) {
+        System.out.println("\n========= 재고 실사 조회 =========");
+        System.out.println();
+
+        if (list.isEmpty()) {
+            System.out.println("재고실사가 기록이 없습니다.");
+            return;
+        }
+
+        System.out.println("총 " + list.size() + "건의 재고실사 기록이 조회되었습니다.");
+        System.out.println();
+
+        printAuditLogTable(list);
+    }
+
+    // 재고 실사 조회
+    private void printAuditLogTable(List<InventoryAuditResponse> auditList) {
+        System.out.println("로그ID | 창고명                | 섹션명     | 상품명                     | 실사일자            | 시스템 | 실제 | 차이 | 상태");
+        System.out.println("=".repeat(120));
+
+        for (InventoryAuditResponse audit : auditList) {
+            System.out.printf("%6d | %-18s | %-8s | %-25s | %-17s | %6d | %4d | %4s | %-4s\n",
+                    audit.getLogId(),
+                    audit.getWarehouseName(),
+                    audit.getSectionText(),
+                    audit.getProductName(),
+                    audit.getCountDate(),
+                    audit.getSystemInventory(),
+                    audit.getPhysicalInventory(),
+                    audit.getDiffInventory(),
+                    audit.getStatus());
+        }
+        System.out.println();
+    }
 }

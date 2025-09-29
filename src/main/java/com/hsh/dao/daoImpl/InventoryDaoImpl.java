@@ -1,6 +1,7 @@
 package main.java.com.hsh.dao.daoImpl;
 
 import main.java.com.hsh.dao.InventoryDao;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
 import main.java.com.hsh.domain.dto.response.InventoryResponse;
 import main.java.com.hsh.domain.dto.response.ProductResponse;
 import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
@@ -45,7 +46,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 전체 재고 조회 : 창고관리자
     @Override
-    public List<InventoryResponse> selectAllInventoryWhAdmin(int userId) {
+    public List<InventoryResponse> selectAllInventoryWhAdmin(Integer userId) {
         List<InventoryResponse> resultList = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectAll_whadmin(?)";
 
@@ -73,7 +74,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 전체 재고 조회 : 회원
     @Override
-    public List<InventoryResponse> selectAllInventoryMember(int userId) {
+    public List<InventoryResponse> selectAllInventoryMember(Integer userId) {
         List<InventoryResponse> resultList = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectAll_member(?)";
 
@@ -234,7 +235,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 상품 상세 조회 : 창고관리자
     @Override
-    public List<ProductResponse> selectProductDetailWhAdmin(int adminId, String productName) {
+    public List<ProductResponse> selectProductDetailWhAdmin(Integer adminId, String productName) {
         List<ProductResponse> list = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectProductDetail_whadmin(?, ?)";
 
@@ -266,7 +267,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 상품 상세 조회 : 회원
     @Override
-    public List<ProductResponse> selectProductDetailMember(int userId, String productName) {
+    public List<ProductResponse> selectProductDetailMember(Integer userId, String productName) {
         List<ProductResponse> list = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectProductDetail_member(?, ?)";
 
@@ -326,8 +327,66 @@ public class InventoryDaoImpl implements InventoryDao {
         return null;
     }
 
-//    @Override
-//    public List<InventoryAuditLogVo> selectInventoryAudit() {
-//        return new ArrayList<>();
-//    }
+    // 재고 실사 조회 : 총관리자
+    @Override
+    public List<InventoryAuditResponse> selectInventoryAuditLogSuperAdmin() {
+        List<InventoryAuditResponse> list = new ArrayList<>();
+        String sql = "CALL usp_inventory_AuditLog_superadmin()";
+
+        try(Connection conn = DBUtil.getConnection();
+            CallableStatement call = conn.prepareCall(sql);
+            ResultSet rs = call.executeQuery()) {
+
+            while(rs.next()) {
+                InventoryAuditResponse dto = new InventoryAuditResponse();
+                dto.setLogId(rs.getInt("로그ID"));
+                dto.setWarehouseName(rs.getString("창고명"));
+                dto.setSectionText(rs.getString("섹션명"));
+                dto.setProductName(rs.getString("상품명"));
+                dto.setCountDate(rs.getTimestamp("실사일자").toLocalDateTime());
+                dto.setSystemInventory(rs.getInt("시스템재고"));
+                dto.setPhysicalInventory(rs.getInt("실제재고"));
+                dto.setDiffInventory(rs.getInt("차이"));
+                dto.setStatus(rs.getString("상태"));
+                list.add(dto);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 재고 실사 조회 : 창고관리자
+    @Override
+    public List<InventoryAuditResponse> selectInventoryAuditLogWhAdmin(Integer userId) {
+        List<InventoryAuditResponse> list = new ArrayList<>();
+        String sql = "CALL usp_inventory_AuditLog_whadmin(?)";
+
+        try(Connection conn = DBUtil.getConnection();
+            CallableStatement call = conn.prepareCall(sql)) {
+
+            call.setInt(1, userId);
+
+            try (ResultSet rs = call.executeQuery()) {
+                while(rs.next()) {
+                    InventoryAuditResponse dto = new InventoryAuditResponse();
+                    dto.setLogId(rs.getInt("로그ID"));
+                    dto.setWarehouseName(rs.getString("창고명"));
+                    dto.setSectionText(rs.getString("섹션명"));
+                    dto.setProductName(rs.getString("상품명"));
+                    dto.setCountDate(rs.getTimestamp("실사일자").toLocalDateTime());
+                    dto.setSystemInventory(rs.getInt("시스템재고"));
+                    dto.setPhysicalInventory(rs.getInt("실제재고"));
+                    dto.setDiffInventory(rs.getInt("차이"));
+                    dto.setStatus(rs.getString("상태"));
+                    list.add(dto);
+                }
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
