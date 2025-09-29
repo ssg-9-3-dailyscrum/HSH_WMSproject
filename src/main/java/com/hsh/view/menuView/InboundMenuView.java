@@ -3,6 +3,9 @@ package main.java.com.hsh.view.menuView;
 import main.java.com.hsh.controller.InboundController;
 import main.java.com.hsh.domain.dto.request.InboundRequestDto;
 import main.java.com.hsh.domain.dto.response.InboundResponseDto;
+import main.java.com.hsh.domain.vo.UserVo;
+import main.java.com.hsh.session.AdminSession;
+import main.java.com.hsh.session.UserSession;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,11 +18,25 @@ public class InboundMenuView {
     private final InboundController controller = InboundController.getInstance();
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public void inboundMenu(String role, int userId) {
+    public void inboundMenu() {
+        AdminSession adminSession = AdminSession.getInstance();
+        UserVo currentUser = UserSession.getInstance().getCurrentLoggedInUser();
+
+        String userRole = null;
+        Integer userId = null;
+
+        if (adminSession.getAdminId() != null) {
+            userRole = adminSession.getRole();
+            userId = adminSession.getAdminId().intValue();
+        } else if (currentUser != null) {
+            userRole = "회원";
+            userId = currentUser.getMemberId();
+        }
+
         boolean flag = false;
 
         while (!flag) {
-            if ("총관리자".equals(role) || "창고관리자".equals(role)) {
+            if (userRole.equals("총관리자") || userRole.equals("창고관리자")) {
                 superAdminMenu();
                 int choice = menuChoice();
                 switch (choice) {
@@ -30,7 +47,7 @@ public class InboundMenuView {
                     case 5 -> flag = true;
                     default -> System.out.println(":: 잘못된 입력입니다. ::");
                 }
-            } else if ("회원".equals(role)) {
+            } else if (userRole.equals("회원")) {
                 memberMenu();
                 int choice = menuChoice();
                 switch (choice) {
