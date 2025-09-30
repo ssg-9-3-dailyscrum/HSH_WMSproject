@@ -9,7 +9,6 @@ public class OutboundRequestDto {
     public int inventoryId;
     public List<ProductQuantity> products = new ArrayList<>();
 
-    // 내부 클래스: 상품 ID, 수량, 이름(optional)
     public static class ProductQuantity {
         public int productId;
         public int quantity;

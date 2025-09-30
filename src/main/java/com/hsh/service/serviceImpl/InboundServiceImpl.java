@@ -39,10 +39,13 @@ public class InboundServiceImpl implements InboundService {
         return inboundDao.approveInbound(inboundId, approverId);
     }
 
+
+
     @Override
-    public boolean cancelInbound(int inboundId) {
-        return inboundDao.cancelInbound(inboundId);
+    public boolean cancelInboundByMember(int inboundId, int memberId) {
+        return inboundDao.cancelInboundByMember(inboundId, memberId); // 회원 취소
     }
+
 
     @Override
     public boolean updateInboundByMember(InboundRequestDto req) {

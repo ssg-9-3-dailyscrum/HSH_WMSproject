@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class OutboundResponseDto {
     public int outboundId;
     public int memberId;

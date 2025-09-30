@@ -10,8 +10,8 @@ public interface OutboundDao {
     boolean approveOutbound(int outboundId, int adminId);
     boolean cancelOutbound(int outboundId);
     boolean updateOutboundRequest(OutboundRequestDto req);
-    List<OutboundResponseDto> getAllOutbound(int adminId, String role);
     OutboundResponseDto getOutboundDetail(int outboundId, int userType, int userId);
     List<OutboundResponseDto> getPendingOutboundRequests(int userType, int userId);
+    List<OutboundResponseDto> getAllOutbound(int adminId, String role);
     String getUserRole(int userId);
 }
