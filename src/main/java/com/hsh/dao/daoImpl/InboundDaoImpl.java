@@ -61,12 +61,13 @@ public class InboundDaoImpl implements InboundDao {
     @Override
     public boolean approveInbound(int inboundId, int approverId) {
         // 단일 행만 업데이트하도록 LIMIT 1 추가
-        String sql = "UPDATE Inbound SET status='승인', inbound_date=NOW() WHERE inbound_id=? AND status='대기' LIMIT 1";
+        String sql = "CALL sp_approve_inbound(?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, inboundId);
+            ps.setInt(2, approverId);
             int affected = ps.executeUpdate();
 
             if (affected == 0) {
