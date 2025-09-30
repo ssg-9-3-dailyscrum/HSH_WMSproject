@@ -9,11 +9,14 @@ public class DBUtil {
     private static ResourceBundle bundle;
 
     static {
-        bundle = ResourceBundle.getBundle("config.dbinfo");
+        bundle = ResourceBundle.getBundle("main.java.com.hsh.util.dbinfo");
 
         try{
             Class.forName(bundle.getString("driver"));
+            /*
+            * 2025-09-26 드라이버 loaded시에는 메시지 뜨지 않도록 수정 - 엄현석
             System.out.println(":: Driver has been loaded ::");
+            */
         } catch (ClassNotFoundException e) {
             System.out.println(":: Driver not found ::");
             e.printStackTrace();
