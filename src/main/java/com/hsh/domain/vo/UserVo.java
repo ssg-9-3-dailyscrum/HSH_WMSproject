@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserVo {
 
-    // DB 컬럼과 일치하는 속성
+
     private int memberId;             // 회원번호 (PK)
     private String userLoginId;        // 로그인 아이디
     private String password;           // 비밀번호
