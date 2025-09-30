@@ -3,7 +3,7 @@ package main.java.com.hsh.domain.dto.response;
 import lombok.Data;
 
 @Data
-public class InventoryResponse {
+public class InventoryResponseDto {
     private String warehouseName; // 창고명
     private String sectionText; // 섹션명
     private int productId; // 상품ID

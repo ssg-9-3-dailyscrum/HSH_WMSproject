@@ -2,11 +2,11 @@ package main.java.com.hsh.service.serviceImpl;
 
 import main.java.com.hsh.dao.InventoryDao;
 import main.java.com.hsh.dao.daoImpl.InventoryDaoImpl;
-import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
-import main.java.com.hsh.domain.dto.response.InventoryResponse;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponseDto;
+import main.java.com.hsh.domain.dto.response.InventoryResponseDto;
 
-import main.java.com.hsh.domain.dto.response.ProductResponse;
-import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
+import main.java.com.hsh.domain.dto.response.ProductResponseDto;
+import main.java.com.hsh.domain.dto.response.WarehouseStatusResponseDto;
 import main.java.com.hsh.service.InventoryService;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     // 전체 재고 조회
     @Override
-    public List<InventoryResponse> getAllInventory(String userRole, int userId) {
+    public List<InventoryResponseDto> getAllInventory(String userRole, int userId) {
         try {
             // 권한별로 CASE
             switch (userRole) {
@@ -59,7 +59,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     // 대분류 조회
     @Override
-    public List<InventoryResponse> getTopCategoryInventory(String categoryName) {
+    public List<InventoryResponseDto> getTopCategoryInventory(String categoryName) {
         return inventoryDao.selectTopCategoryInventory(categoryName);
     }
 
@@ -71,13 +71,13 @@ public class InventoryServiceImpl implements InventoryService {
 
     // 소분류 조회
     @Override
-    public List<InventoryResponse> getSubCategoryInventory(String categoryName) {
+    public List<InventoryResponseDto> getSubCategoryInventory(String categoryName) {
         return inventoryDao.selectSubCategoryInventory(categoryName);
     }
 
     // 상품 상세 조회
     @Override
-    public List<ProductResponse> getProductDetail(String userRole, Integer userId, String productName) {
+    public List<ProductResponseDto> getProductDetail(String userRole, Integer userId, String productName) {
         try {
             // 권한별로 CASE
             switch (userRole) {
@@ -101,13 +101,13 @@ public class InventoryServiceImpl implements InventoryService {
 
     // 창고 현황 조회
     @Override
-    public List<WarehouseStatusResponse> getWarehouse() {
+    public List<WarehouseStatusResponseDto> getWarehouse() {
         return inventoryDao.selectWarehouse();
     }
 
     // 재고 실사 조회
     @Override
-    public List<InventoryAuditResponse> getInventoryAuditLog(String userRole, Integer userId) {
+    public List<InventoryAuditResponseDto> getInventoryAuditLog(String userRole, Integer userId) {
         try {
             // 권한별로 CASE
             switch (userRole) {

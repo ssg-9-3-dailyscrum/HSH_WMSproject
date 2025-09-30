@@ -1,10 +1,10 @@
 package main.java.com.hsh.dao.daoImpl;
 
 import main.java.com.hsh.dao.InventoryDao;
-import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
-import main.java.com.hsh.domain.dto.response.InventoryResponse;
-import main.java.com.hsh.domain.dto.response.ProductResponse;
-import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponseDto;
+import main.java.com.hsh.domain.dto.response.InventoryResponseDto;
+import main.java.com.hsh.domain.dto.response.ProductResponseDto;
+import main.java.com.hsh.domain.dto.response.WarehouseStatusResponseDto;
 import main.java.com.hsh.util.DBUtil;
 
 import java.sql.CallableStatement;
@@ -17,8 +17,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 전체 재고 조회 : 총관리자
     @Override
-    public List<InventoryResponse> selectAllInventorySuperAdmin() {
-        List<InventoryResponse> resultList = new ArrayList<>();
+    public List<InventoryResponseDto> selectAllInventorySuperAdmin() {
+        List<InventoryResponseDto> resultList = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectAll_superadmin()";
 
         try(Connection conn = DBUtil.getConnection();
@@ -26,7 +26,7 @@ public class InventoryDaoImpl implements InventoryDao {
             ResultSet rs = call.executeQuery()) {
 
             while(rs.next()) {
-                InventoryResponse dto = new InventoryResponse();
+                InventoryResponseDto dto = new InventoryResponseDto();
                 dto.setWarehouseName(rs.getString("창고명"));
                 dto.setSectionText(rs.getString("섹션명"));
                 dto.setProductId(rs.getInt("상품ID"));
@@ -43,8 +43,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 전체 재고 조회 : 창고관리자
     @Override
-    public List<InventoryResponse> selectAllInventoryWhAdmin(Integer userId) {
-        List<InventoryResponse> resultList = new ArrayList<>();
+    public List<InventoryResponseDto> selectAllInventoryWhAdmin(Integer userId) {
+        List<InventoryResponseDto> resultList = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectAll_whadmin(?)";
 
         try(Connection conn = DBUtil.getConnection();
@@ -54,7 +54,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
             try(ResultSet rs = call.executeQuery()) {
                 while(rs.next()) {
-                    InventoryResponse dto = new InventoryResponse();
+                    InventoryResponseDto dto = new InventoryResponseDto();
                     dto.setSectionText(rs.getString("섹션명"));
                     dto.setProductId(rs.getInt("상품ID"));
                     dto.setProductName(rs.getString("상품명"));
@@ -71,8 +71,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 전체 재고 조회 : 회원
     @Override
-    public List<InventoryResponse> selectAllInventoryMember(Integer userId) {
-        List<InventoryResponse> resultList = new ArrayList<>();
+    public List<InventoryResponseDto> selectAllInventoryMember(Integer userId) {
+        List<InventoryResponseDto> resultList = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectAll_member(?)";
 
         try(Connection conn = DBUtil.getConnection();
@@ -82,7 +82,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
             try(ResultSet rs = call.executeQuery()) {
                 while(rs.next()) {
-                    InventoryResponse dto = new InventoryResponse();
+                    InventoryResponseDto dto = new InventoryResponseDto();
                     dto.setWarehouseName(rs.getString("창고명"));
                     dto.setProductId(rs.getInt("상품ID"));
                     dto.setProductName(rs.getString("상품명"));
@@ -119,8 +119,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 대분류 조회
     @Override
-    public List<InventoryResponse> selectTopCategoryInventory(String categoryName) {
-        List<InventoryResponse> list = new ArrayList<>();
+    public List<InventoryResponseDto> selectTopCategoryInventory(String categoryName) {
+        List<InventoryResponseDto> list = new ArrayList<>();
         String sql = "CALL usp_Inventory_SelectTopCategory(?)";
 
         try(Connection conn = DBUtil.getConnection();
@@ -130,7 +130,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
             try(ResultSet rs = call.executeQuery()) {
                 while(rs.next()) {
-                    InventoryResponse dto = new InventoryResponse();
+                    InventoryResponseDto dto = new InventoryResponseDto();
                     dto.setCategoryName(rs.getString("대분류"));
                     dto.setProductId(rs.getInt("상품ID"));
                     dto.setProductName(rs.getString("상품명"));
@@ -171,8 +171,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 소분류 조회
     @Override
-    public List<InventoryResponse> selectSubCategoryInventory(String categoryName) {
-        List<InventoryResponse> list = new ArrayList<>();
+    public List<InventoryResponseDto> selectSubCategoryInventory(String categoryName) {
+        List<InventoryResponseDto> list = new ArrayList<>();
         String sql = "CALL usp_Inventory_SelectSubCategory(?)";
 
         try(Connection conn = DBUtil.getConnection();
@@ -182,7 +182,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
             try(ResultSet rs = call.executeQuery()) {
                 while(rs.next()) {
-                    InventoryResponse dto = new InventoryResponse();
+                    InventoryResponseDto dto = new InventoryResponseDto();
                     dto.setCategoryName(rs.getString("소분류"));
                     dto.setProductId(rs.getInt("상품ID"));
                     dto.setProductName(rs.getString("상품명"));
@@ -201,8 +201,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 상품 상세 조회 : 총관리자
     @Override
-    public List<ProductResponse> selectProductDetailSuperAdmin(String productName) {
-        List<ProductResponse> list = new ArrayList<>();
+    public List<ProductResponseDto> selectProductDetailSuperAdmin(String productName) {
+        List<ProductResponseDto> list = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectProductDetail_superadmin(?)";
 
         try (Connection conn = DBUtil.getConnection();
@@ -212,7 +212,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
             try (ResultSet rs = call.executeQuery()) {
                 while (rs.next()) {
-                    ProductResponse dto = new ProductResponse();
+                    ProductResponseDto dto = new ProductResponseDto();
                     dto.setProductId(rs.getInt("상품ID"));
                     dto.setProductName(rs.getString("상품명"));
                     dto.setProductColor(rs.getString("색상"));
@@ -232,8 +232,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 상품 상세 조회 : 창고관리자
     @Override
-    public List<ProductResponse> selectProductDetailWhAdmin(Integer adminId, String productName) {
-        List<ProductResponse> list = new ArrayList<>();
+    public List<ProductResponseDto> selectProductDetailWhAdmin(Integer adminId, String productName) {
+        List<ProductResponseDto> list = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectProductDetail_whadmin(?, ?)";
 
         try (Connection conn = DBUtil.getConnection();
@@ -244,7 +244,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
             try (ResultSet rs = call.executeQuery()) {
                 while (rs.next()) {
-                    ProductResponse dto = new ProductResponse();
+                    ProductResponseDto dto = new ProductResponseDto();
                     dto.setProductId(rs.getInt("상품ID"));
                     dto.setProductName(rs.getString("상품명"));
                     dto.setProductColor(rs.getString("색상"));
@@ -264,8 +264,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 상품 상세 조회 : 회원
     @Override
-    public List<ProductResponse> selectProductDetailMember(Integer userId, String productName) {
-        List<ProductResponse> list = new ArrayList<>();
+    public List<ProductResponseDto> selectProductDetailMember(Integer userId, String productName) {
+        List<ProductResponseDto> list = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectProductDetail_member(?, ?)";
 
         try (Connection conn = DBUtil.getConnection();
@@ -276,7 +276,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
             try (ResultSet rs = call.executeQuery()) {
                 while (rs.next()) {
-                    ProductResponse dto = new ProductResponse();
+                    ProductResponseDto dto = new ProductResponseDto();
                     dto.setProductId(rs.getInt("상품ID"));
                     dto.setProductName(rs.getString("상품명"));
                     dto.setProductColor(rs.getString("색상"));
@@ -296,8 +296,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 창고 현황 조회 : 총관리자, 창고관리자
     @Override
-    public List<WarehouseStatusResponse> selectWarehouse() {
-        List<WarehouseStatusResponse> list = new ArrayList<>();
+    public List<WarehouseStatusResponseDto> selectWarehouse() {
+        List<WarehouseStatusResponseDto> list = new ArrayList<>();
         String sql = "CALL usp_inventory_SelectWarehouse()";
 
         try(Connection conn = DBUtil.getConnection();
@@ -305,7 +305,7 @@ public class InventoryDaoImpl implements InventoryDao {
             ResultSet rs = call.executeQuery()) {
 
             while(rs.next()) {
-                WarehouseStatusResponse dto = new WarehouseStatusResponse();
+                WarehouseStatusResponseDto dto = new WarehouseStatusResponseDto();
                 dto.setWarehouseId(rs.getInt("창고ID"));
                 dto.setWarehouseName(rs.getString("창고명"));
                 dto.setWarehouseType(rs.getString("창고종류"));
@@ -326,8 +326,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 재고 실사 조회 : 총관리자
     @Override
-    public List<InventoryAuditResponse> selectInventoryAuditLogSuperAdmin() {
-        List<InventoryAuditResponse> list = new ArrayList<>();
+    public List<InventoryAuditResponseDto> selectInventoryAuditLogSuperAdmin() {
+        List<InventoryAuditResponseDto> list = new ArrayList<>();
         String sql = "CALL usp_inventory_AuditLog_superadmin()";
 
         try(Connection conn = DBUtil.getConnection();
@@ -335,7 +335,7 @@ public class InventoryDaoImpl implements InventoryDao {
             ResultSet rs = call.executeQuery()) {
 
             while(rs.next()) {
-                InventoryAuditResponse dto = new InventoryAuditResponse();
+                InventoryAuditResponseDto dto = new InventoryAuditResponseDto();
                 dto.setLogId(rs.getInt("로그ID"));
                 dto.setWarehouseName(rs.getString("창고명"));
                 dto.setSectionText(rs.getString("섹션명"));
@@ -356,8 +356,8 @@ public class InventoryDaoImpl implements InventoryDao {
 
     // 재고 실사 조회 : 창고관리자
     @Override
-    public List<InventoryAuditResponse> selectInventoryAuditLogWhAdmin(Integer userId) {
-        List<InventoryAuditResponse> list = new ArrayList<>();
+    public List<InventoryAuditResponseDto> selectInventoryAuditLogWhAdmin(Integer userId) {
+        List<InventoryAuditResponseDto> list = new ArrayList<>();
         String sql = "CALL usp_inventory_AuditLog_whadmin(?)";
 
         try(Connection conn = DBUtil.getConnection();
@@ -367,7 +367,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
             try (ResultSet rs = call.executeQuery()) {
                 while(rs.next()) {
-                    InventoryAuditResponse dto = new InventoryAuditResponse();
+                    InventoryAuditResponseDto dto = new InventoryAuditResponseDto();
                     dto.setLogId(rs.getInt("로그ID"));
                     dto.setWarehouseName(rs.getString("창고명"));
                     dto.setSectionText(rs.getString("섹션명"));

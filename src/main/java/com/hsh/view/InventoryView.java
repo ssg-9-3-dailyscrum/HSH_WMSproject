@@ -1,9 +1,9 @@
 package main.java.com.hsh.view;
 
-import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
-import main.java.com.hsh.domain.dto.response.InventoryResponse;
-import main.java.com.hsh.domain.dto.response.ProductResponse;
-import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponseDto;
+import main.java.com.hsh.domain.dto.response.InventoryResponseDto;
+import main.java.com.hsh.domain.dto.response.ProductResponseDto;
+import main.java.com.hsh.domain.dto.response.WarehouseStatusResponseDto;
 import main.java.com.hsh.domain.vo.UserVo;
 import main.java.com.hsh.session.UserSession;
 import main.java.com.hsh.session.AdminSession;
@@ -13,7 +13,7 @@ import java.util.List;
 public class InventoryView {
 
     // 전체 재고 조회
-    public void displayAllInventory(List<InventoryResponse> list) {
+    public void displayAllInventory(List<InventoryResponseDto> list) {
         System.out.println("\n========= 전체 재고 조회 =========");
         System.out.println();
 
@@ -42,7 +42,7 @@ public class InventoryView {
         printHeader(userRole);
         printSeparator(userRole);
 
-        for (InventoryResponse dto : list) {
+        for (InventoryResponseDto dto : list) {
             printRow(dto, userRole);
         }
         System.out.println();
@@ -74,7 +74,7 @@ public class InventoryView {
         }
     }
 
-    private void printRow(InventoryResponse dto, String userRole) {
+    private void printRow(InventoryResponseDto dto, String userRole) {
         switch(userRole) {
             case "총관리자" ->
                     System.out.printf("%-15s | %-15s | %-10d | %-20s | %,10d\n",
@@ -99,7 +99,7 @@ public class InventoryView {
     }
 
     // 대분류 조회
-    public void displayTopCategoryInventory(List<InventoryResponse> list) {
+    public void displayTopCategoryInventory(List<InventoryResponseDto> list) {
         System.out.println("\n========= 대분류 조회 =========");
         System.out.println();
 
@@ -114,7 +114,7 @@ public class InventoryView {
         System.out.printf("%-15s | %-10s | %-20s | %-15s | %-15s | %10s\n",
                 "대분류", "상품ID", "상품명", "창고명", "섹션명", "수량");
 
-        for (InventoryResponse dto : list) {
+        for (InventoryResponseDto dto : list) {
             System.out.printf("%-15s | %-10d | %-20s | %-15s | %-15s | %10d\n",
                     dto.getCategoryName(),
                     dto.getProductId(),
@@ -127,7 +127,7 @@ public class InventoryView {
     }
 
     // 소분류 조회
-    public void displaySubCategoryInventory(List<InventoryResponse> list) {
+    public void displaySubCategoryInventory(List<InventoryResponseDto> list) {
         System.out.println("\n========= 소분류 조회 =========");
         System.out.println();
 
@@ -142,7 +142,7 @@ public class InventoryView {
         System.out.printf("%-15s | %-10s | %-20s | %-15s | %-15s | %10s\n",
                 "소분류", "상품ID", "상품명", "창고명", "섹션명", "수량");
 
-        for (InventoryResponse dto : list) {
+        for (InventoryResponseDto dto : list) {
             System.out.printf("%-15s | %-10d | %-20s | %-15s | %-15s | %10d\n",
                     dto.getCategoryName(),
                     dto.getProductId(),
@@ -155,7 +155,7 @@ public class InventoryView {
     }
 
     // 상품 상세 조회
-    public void displayProductDetail(List<ProductResponse> list) {
+    public void displayProductDetail(List<ProductResponseDto> list) {
         System.out.println("\n========= 상품 상세 조회 =========");
         System.out.println();
 
@@ -167,13 +167,13 @@ public class InventoryView {
         System.out.println("총 " + list.size() + "개의 상품이 검색되었습니다.");
         System.out.println();
 
-        for (ProductResponse product : list) {
+        for (ProductResponseDto product : list) {
             printProductDetailBox(product);
             System.out.println();
         }
     }
 
-    private void printProductDetailBox(ProductResponse product) {
+    private void printProductDetailBox(ProductResponseDto product) {
         System.out.println("─".repeat(60));
         System.out.printf("%-58s\n", "상품 정보");
         System.out.println("─".repeat(60));
@@ -216,7 +216,7 @@ public class InventoryView {
     }
 
     // 창고 현황 조회
-    public void displayWarehouseInventory(List<WarehouseStatusResponse> list) {
+    public void displayWarehouseInventory(List<WarehouseStatusResponseDto> list) {
         System.out.println("\n========= 창고 현황 조회 =========");
         System.out.println();
 
@@ -231,11 +231,11 @@ public class InventoryView {
         printWarehouseTable(list);
     }
 
-    private void printWarehouseTable(List<WarehouseStatusResponse> warehouseList) {
+    private void printWarehouseTable(List<WarehouseStatusResponseDto> warehouseList) {
         printWarehouseHeader();
         printWarehouseSeparator();
 
-        for (WarehouseStatusResponse warehouse : warehouseList) {
+        for (WarehouseStatusResponseDto warehouse : warehouseList) {
             printWarehouseRow(warehouse);
         }
         System.out.println();
@@ -254,7 +254,7 @@ public class InventoryView {
                 "-".repeat(6) + "-+-" + "-".repeat(4) + "-+-" + "-".repeat(8));
     }
 
-    private void printWarehouseRow(WarehouseStatusResponse warehouse) {
+    private void printWarehouseRow(WarehouseStatusResponseDto warehouse) {
         System.out.printf("%-5d | %-12s | %-8s | %8.1f | %8.1f | %8.1f | %5.1f%% | %-4s | %,8d\n",
                 warehouse.getWarehouseId(),
                 warehouse.getWarehouseName(),
@@ -267,7 +267,7 @@ public class InventoryView {
                 warehouse.getTotalCount());
     }
 
-    public void displayInventoryAuditLog(List<InventoryAuditResponse> list) {
+    public void displayInventoryAuditLog(List<InventoryAuditResponseDto> list) {
         System.out.println("\n========= 재고 실사 조회 =========");
         System.out.println();
 
@@ -283,11 +283,11 @@ public class InventoryView {
     }
 
     // 재고 실사 조회
-    private void printAuditLogTable(List<InventoryAuditResponse> auditList) {
+    private void printAuditLogTable(List<InventoryAuditResponseDto> auditList) {
         System.out.println("로그ID | 창고명                | 섹션명     | 상품명                     | 실사일자            | 시스템 | 실제 | 차이 | 상태");
         System.out.println("=".repeat(120));
 
-        for (InventoryAuditResponse audit : auditList) {
+        for (InventoryAuditResponseDto audit : auditList) {
             System.out.printf("%6d | %-18s | %-8s | %-25s | %-17s | %6d | %4d | %4s | %-4s\n",
                     audit.getLogId(),
                     audit.getWarehouseName(),

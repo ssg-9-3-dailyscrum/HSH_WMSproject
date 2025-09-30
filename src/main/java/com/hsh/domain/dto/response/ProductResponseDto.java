@@ -3,7 +3,7 @@ package main.java.com.hsh.domain.dto.response;
 import lombok.Data;
 
 @Data
-public class ProductResponse {
+public class ProductResponseDto {
     private int productId; // 상품ID
     private String productName; // 상품명
     private String productColor; // 색상

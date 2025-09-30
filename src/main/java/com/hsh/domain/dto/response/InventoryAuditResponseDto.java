@@ -1,11 +1,10 @@
 package main.java.com.hsh.domain.dto.response;
 
 import lombok.Data;
-import main.java.com.hsh.library.LocalDateTime;
 
 
 @Data
-public class InventoryAuditResponse {
+public class InventoryAuditResponseDto {
     private int logId; // 로그ID
     private String warehouseName; // 창고명
     private String sectionText; // 섹션명
