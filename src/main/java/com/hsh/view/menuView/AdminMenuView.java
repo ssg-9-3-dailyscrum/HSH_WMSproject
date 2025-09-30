@@ -83,6 +83,8 @@ public class AdminMenuView {
                 }
                 case 5 -> {
                     System.out.println("출고관리 메뉴 호출");
+                    OutboundMenuView outboundMenuView = new OutboundMenuView();
+                    outboundMenuView.outboundMenu();
                 }
                 case 6 -> {
                     AdminLoginController.getInstance().logout();

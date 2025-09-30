@@ -57,6 +57,8 @@ public class UserMenuView {
                     }
                     case 5 -> {
                         System.out.println("5. 출고 관리 메뉴 ");
+                        OutboundMenuView outboundMenuView = new OutboundMenuView();
+                        outboundMenuView.outboundMenu();
                     }
                     case 6 -> {
                         userLoginController.logout(); // 컨트롤러에 로그아웃 요청
