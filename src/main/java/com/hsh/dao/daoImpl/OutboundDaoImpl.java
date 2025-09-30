@@ -48,54 +48,35 @@ public class OutboundDaoImpl implements OutboundDao {
 
     @Override
     public boolean approveOutbound(int outboundId, int adminId) {
-        String checkSql = "SELECT outbound_status FROM Outbound WHERE outbound_id = ?";
-        String approveSql = "CALL sp_approve_outbound(?)";
+        String approveSql = "{CALL sp_approve_outbound(?)}";
 
-        try (Connection conn = getConnection()) {
+        try (Connection conn = getConnection();
+             CallableStatement cs = conn.prepareCall(approveSql)) {
+
             conn.setAutoCommit(false);
 
-            // 1. 존재 여부 및 상태 체크
-            try (PreparedStatement psCheck = conn.prepareStatement(checkSql)) {
-                psCheck.setInt(1, outboundId);
-                ResultSet rs = psCheck.executeQuery();
+            // 1. 프로시저 호출
+            cs.setInt(1, outboundId);
+            int affected = cs.executeUpdate(); // ROW_COUNT() 기반 반환값
 
-                if (!rs.next()) { // 존재하지 않음
-                    conn.rollback();
-                    return false;
-                }
-
-                String status = rs.getString("outbound_status");
-                if (!"대기".equals(status)) { // 대기 상태 아니면 승인 불가
-                    conn.rollback();
-                    return false;
-                }
-            }
-
-            // 2. 승인 프로시저 호출
-            try (PreparedStatement psApprove = conn.prepareStatement(approveSql)) {
-                psApprove.setInt(1, outboundId);
-                int affected = psApprove.executeUpdate();
-
-                if (affected == 0) {
-                    conn.rollback();
-                    return false;
-                }
-
-                conn.commit();
-                return true;
-            } catch (SQLException e) {
-                conn.rollback();
-                e.printStackTrace();
+            if (affected == 0) {
+                conn.rollback(); // 업데이트 안 됐으면 롤백
                 return false;
-            } finally {
-                conn.setAutoCommit(true);
             }
+
+            conn.commit(); // 승인 성공 시 커밋
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            try (Connection conn = getConnection()) {
+                conn.setAutoCommit(true);
+            } catch (SQLException ignored) {}
         }
     }
+
 
 
 
