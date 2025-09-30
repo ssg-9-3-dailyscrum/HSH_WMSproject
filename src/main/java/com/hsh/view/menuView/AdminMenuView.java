@@ -2,6 +2,7 @@ package main.java.com.hsh.view.menuView;
 
 import main.java.com.hsh.controller.AdminLoginController;
 import main.java.com.hsh.domain.vo.AdminVo;
+import main.java.com.hsh.domain.vo.OutboundVo;
 import main.java.com.hsh.domain.vo.UserVo;
 import main.java.com.hsh.service.UserLoginService;
 import main.java.com.hsh.service.serviceImpl.UserLoginServiceImpl;
@@ -83,6 +84,8 @@ public class AdminMenuView {
                 }
                 case 5 -> {
                     System.out.println("출고관리 메뉴 호출");
+                    OutboundMenuView outboundMenuView = new OutboundMenuView();
+                    outboundMenuView.outboundMenu();
                 }
                 case 6 -> {
                     AdminLoginController.getInstance().logout();
