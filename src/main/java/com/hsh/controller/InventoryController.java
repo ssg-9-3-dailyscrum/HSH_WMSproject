@@ -1,16 +1,15 @@
 package main.java.com.hsh.controller;
 
-import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
-import main.java.com.hsh.domain.dto.response.InventoryResponse;
-import main.java.com.hsh.domain.dto.response.ProductResponse;
-import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponseDto;
+import main.java.com.hsh.domain.dto.response.InventoryResponseDto;
+import main.java.com.hsh.domain.dto.response.ProductResponseDto;
+import main.java.com.hsh.domain.dto.response.WarehouseStatusResponseDto;
 import main.java.com.hsh.domain.vo.UserVo;
 import main.java.com.hsh.service.InventoryService;
 import main.java.com.hsh.service.serviceImpl.InventoryServiceImpl;
 import main.java.com.hsh.session.AdminSession;
 import main.java.com.hsh.session.UserSession;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class InventoryController {
 
 
     // 전체 재고 조회
-    public List<InventoryResponse> showAllInventory() {
+    public List<InventoryResponseDto> showAllInventory() {
         AdminSession adminSession = AdminSession.getInstance();
         UserVo currentUser = UserSession.getInstance().getCurrentLoggedInUser();
 
@@ -56,7 +55,7 @@ public class InventoryController {
     }
 
     // 대분류 조회
-    public List<InventoryResponse> showTopCategoryInventory(String categoryName) {
+    public List<InventoryResponseDto> showTopCategoryInventory(String categoryName) {
         return inventoryService.getTopCategoryInventory(categoryName);
     }
 
@@ -66,12 +65,12 @@ public class InventoryController {
     }
 
     // 소분류 조회
-    public List<InventoryResponse> showSubCategoryInventory(String categoryName) {
+    public List<InventoryResponseDto> showSubCategoryInventory(String categoryName) {
         return inventoryService.getSubCategoryInventory(categoryName);
     }
 
     // 상품 상세 조회
-    public List<ProductResponse> showProductDetail(String productName) {
+    public List<ProductResponseDto> showProductDetail(String productName) {
         AdminSession adminSession = AdminSession.getInstance();
         UserVo currentUser = UserSession.getInstance().getCurrentLoggedInUser();
 
@@ -93,11 +92,11 @@ public class InventoryController {
     }
 
     // 창고 현황 조회
-    public List<WarehouseStatusResponse> showWarehouse() {
+    public List<WarehouseStatusResponseDto> showWarehouse() {
         return inventoryService.getWarehouse();
     }
 
-    public List<InventoryAuditResponse> showInventoryAuditLog() {
+    public List<InventoryAuditResponseDto> showInventoryAuditLog() {
         AdminSession adminSession = AdminSession.getInstance();
         UserVo currentUser = UserSession.getInstance().getCurrentLoggedInUser();
 

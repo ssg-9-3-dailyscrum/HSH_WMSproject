@@ -1,39 +1,38 @@
 package main.java.com.hsh.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
-import main.java.com.hsh.domain.dto.response.InventoryResponse;
-import main.java.com.hsh.domain.dto.response.ProductResponse;
-import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponseDto;
+import main.java.com.hsh.domain.dto.response.InventoryResponseDto;
+import main.java.com.hsh.domain.dto.response.ProductResponseDto;
+import main.java.com.hsh.domain.dto.response.WarehouseStatusResponseDto;
 
 public interface InventoryDao {
     // 전체 재고 조회
-    List<InventoryResponse> selectAllInventorySuperAdmin();
-    List<InventoryResponse> selectAllInventoryWhAdmin(Integer adminId);
-    List<InventoryResponse> selectAllInventoryMember(Integer memberId);
+    List<InventoryResponseDto> selectAllInventorySuperAdmin();
+    List<InventoryResponseDto> selectAllInventoryWhAdmin(Integer adminId);
+    List<InventoryResponseDto> selectAllInventoryMember(Integer memberId);
 
     // 대분류 카테고리 리스트
     List<String> selectTopCategoryList() ;
     // 대분류 조회
-    List<InventoryResponse> selectTopCategoryInventory(String categoryName);
+    List<InventoryResponseDto> selectTopCategoryInventory(String categoryName);
 
     // 소분류 카테고리 리스트
     List<String> selectSubCategoryList(String topCategory);
     // 소분류 조회
-    List<InventoryResponse> selectSubCategoryInventory(String categoryName);
+    List<InventoryResponseDto> selectSubCategoryInventory(String categoryName);
 
     // 상품 상세 조회
-    List<ProductResponse> selectProductDetailSuperAdmin(String productName);
-    List<ProductResponse> selectProductDetailWhAdmin(Integer adminId, String productName);
-    List<ProductResponse> selectProductDetailMember(Integer userId, String productName);
+    List<ProductResponseDto> selectProductDetailSuperAdmin(String productName);
+    List<ProductResponseDto> selectProductDetailWhAdmin(Integer adminId, String productName);
+    List<ProductResponseDto> selectProductDetailMember(Integer userId, String productName);
 
     // 창고 현황 조회
-    List<WarehouseStatusResponse> selectWarehouse();
+    List<WarehouseStatusResponseDto> selectWarehouse();
 
 
     // 재고실사 조회
-    List<InventoryAuditResponse> selectInventoryAuditLogSuperAdmin();
-    List<InventoryAuditResponse> selectInventoryAuditLogWhAdmin(Integer userId);
+    List<InventoryAuditResponseDto> selectInventoryAuditLogSuperAdmin();
+    List<InventoryAuditResponseDto> selectInventoryAuditLogWhAdmin(Integer userId);
 }

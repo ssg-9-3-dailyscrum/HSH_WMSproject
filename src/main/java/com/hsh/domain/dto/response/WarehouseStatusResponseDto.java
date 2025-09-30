@@ -3,7 +3,7 @@ package main.java.com.hsh.domain.dto.response;
 import lombok.Data;
 
 @Data
-public class WarehouseStatusResponse {
+public class WarehouseStatusResponseDto {
     private int warehouseId; // 창고ID
     private String warehouseName; // 창고명
     private String warehouseType; // 창고종류

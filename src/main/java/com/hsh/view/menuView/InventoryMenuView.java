@@ -1,10 +1,10 @@
 package main.java.com.hsh.view.menuView;
 
 import main.java.com.hsh.controller.InventoryController;
-import main.java.com.hsh.domain.dto.response.InventoryAuditResponse;
-import main.java.com.hsh.domain.dto.response.InventoryResponse;
-import main.java.com.hsh.domain.dto.response.ProductResponse;
-import main.java.com.hsh.domain.dto.response.WarehouseStatusResponse;
+import main.java.com.hsh.domain.dto.response.InventoryAuditResponseDto;
+import main.java.com.hsh.domain.dto.response.InventoryResponseDto;
+import main.java.com.hsh.domain.dto.response.ProductResponseDto;
+import main.java.com.hsh.domain.dto.response.WarehouseStatusResponseDto;
 import main.java.com.hsh.domain.vo.UserVo;
 import main.java.com.hsh.session.UserSession;
 import main.java.com.hsh.session.AdminSession;
@@ -113,7 +113,7 @@ public class InventoryMenuView {
 
     // 전체 재고 조회
     private void handleAllInventory() {
-        List<InventoryResponse> inventoryList = inventoryController.showAllInventory();
+        List<InventoryResponseDto> inventoryList = inventoryController.showAllInventory();
         inventoryView.displayAllInventory(inventoryList);
     }
 
@@ -161,7 +161,7 @@ public class InventoryMenuView {
             String selectedTopCategory = topCategories.get(choice - 1);
 
             // 선택한 대분류의 재고 조회
-            List<InventoryResponse> inventoryList = inventoryController.showTopCategoryInventory(selectedTopCategory);
+            List<InventoryResponseDto> inventoryList = inventoryController.showTopCategoryInventory(selectedTopCategory);
             inventoryView.displayTopCategoryInventory(inventoryList);
 
             // 소분류 조회 옵션 제공
@@ -217,7 +217,7 @@ public class InventoryMenuView {
             String selectedSubCategory = subCategories.get(choice - 1);
 
             // 선택한 소분류의 재고 조회 및 출력
-            List<InventoryResponse> inventoryList = inventoryController.showSubCategoryInventory(selectedSubCategory);
+            List<InventoryResponseDto> inventoryList = inventoryController.showSubCategoryInventory(selectedSubCategory);
             inventoryView.displaySubCategoryInventory(inventoryList);
 
         } catch (NumberFormatException e) {
@@ -235,19 +235,19 @@ public class InventoryMenuView {
             return;
         }
 
-        List<ProductResponse> productList = inventoryController.showProductDetail(productName);
+        List<ProductResponseDto> productList = inventoryController.showProductDetail(productName);
         inventoryView.displayProductDetail(productList);
     }
 
     // 창고 현황 조회
     private void handleWareHouse() {
-        List<WarehouseStatusResponse> warehouseList = inventoryController.showWarehouse();
+        List<WarehouseStatusResponseDto> warehouseList = inventoryController.showWarehouse();
         inventoryView.displayWarehouseInventory(warehouseList);
     }
 
     // 재고 실사 조회
     private void handleInventoryAuditLog() {
-        List<InventoryAuditResponse> inventoryAuditList = inventoryController.showInventoryAuditLog();
+        List<InventoryAuditResponseDto> inventoryAuditList = inventoryController.showInventoryAuditLog();
         inventoryView.displayInventoryAuditLog(inventoryAuditList);
     }
 
