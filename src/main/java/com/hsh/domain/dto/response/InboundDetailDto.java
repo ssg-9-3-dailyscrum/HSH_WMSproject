@@ -1,6 +1,7 @@
 package main.java.com.hsh.domain.dto.response;
 
-public class OutboundDetailResponseDto {
+public class InboundDetailDto {
+    public int inboundDetailId;
     public int productId;
     public String productName;
     public int quantity;

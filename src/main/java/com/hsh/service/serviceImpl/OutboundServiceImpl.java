@@ -24,8 +24,15 @@ public class OutboundServiceImpl implements OutboundService {
 
     @Override
     public boolean approveRequest(int outboundId, int adminId) {
-        return outboundDao.approveOutbound(outboundId, adminId);
+        // DB 호출 후 성공 여부 반환
+        boolean success = outboundDao.approveOutbound(outboundId, adminId);
+
+        if (!success) {
+            System.out.println(":: 승인 실패: 존재하지 않는 출고 ID이거나 이미 승인된 요청입니다. ::");
+        }
+        return success;
     }
+
 
     @Override
     public boolean cancelRequest(int outboundId) {
@@ -35,7 +42,7 @@ public class OutboundServiceImpl implements OutboundService {
     @Override
     public boolean updateRequest(OutboundRequestDto req, int userType, int userId) {
         // 회원이면 본인 출고만 수정 가능
-        if (userType == 3) { // 회원
+        if (userType == 2) {
             OutboundResponseDto dto = outboundDao.getOutboundDetail(req.outboundId, userType, userId);
             if (dto == null || dto.memberId != userId) return false;
         }
@@ -46,8 +53,7 @@ public class OutboundServiceImpl implements OutboundService {
     public OutboundResponseDto getOutboundDetail(int outboundId, int userType, int userId) {
         OutboundResponseDto dto = outboundDao.getOutboundDetail(outboundId, userType, userId);
         if (dto == null) return null;
-
-        if (userType == 3 && dto.memberId != userId) return null; // 회원이면 본인만
+        if (userType == 2 && dto.memberId != userId) return null;
         return dto;
     }
 
@@ -59,10 +65,7 @@ public class OutboundServiceImpl implements OutboundService {
     @Override
     public List<OutboundResponseDto> getAllRequests(int userType, int userId) {
         String role = outboundDao.getUserRole(userId);
-        if (role == null || (!role.equals("총관리자") && !role.equals("창고관리자"))) {
-            System.out.println("전체 출고 조회는 관리자만 가능합니다.");
-            return new ArrayList<>();
-        }
+        if (!role.equals("총관리자") && !role.equals("창고관리자")) return new ArrayList<>();
         return outboundDao.getAllOutbound(userId, role);
     }
 

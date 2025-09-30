@@ -13,7 +13,5 @@ public interface OutboundService {
     OutboundResponseDto getOutboundDetail(int outboundId, int userType, int userId);
     List<OutboundResponseDto> getPendingList(int userType, int userId);
     List<OutboundResponseDto> getAllRequests(int userType, int userId);
-
-    // 추가: user role 조회
     String getUserRole(int userId);
 }
